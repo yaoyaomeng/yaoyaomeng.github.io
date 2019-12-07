@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Xyz的博客</title>
+    <link>https://yaoyaomeng.github.io/</link>
+    <description>Recent content on Xyz的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 07 Dec 2019 15:02:35 +0800</lastBuildDate>
+    
+	<atom:link href="https://yaoyaomeng.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>C语言指针</title>
+      <link>https://yaoyaomeng.github.io/post/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/</link>
+      <pubDate>Sat, 07 Dec 2019 15:02:35 +0800</pubDate>
+      
+      <guid>https://yaoyaomeng.github.io/post/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/</guid>
+      <description>指针 指针的作用可以通过内存地址来控制变量,定义指针时*p = &amp;amp;变量名，指针会在计算机内存分配4个字节存放这个变量的首地址，*p叫指针变量 指针的用法 #include &amp;lt;stdio.h&amp;gt; int main(){ int a = 20; int *p; p = &amp;amp;a; *p = 25; printf(&amp;quot;%d \n&amp;quot;,a); return 0; } 此时输出为25 把*p可以当作a进行赋值操作; 在数组中的用法： #include &amp;lt;stdio.h&amp;gt; void selectArrayMax1(); int a[] = {1,2,3,4,5,9}; int main(){ selectArrayMax1(&amp;amp;a); return 0;</description>
+    </item>
+    
+    <item>
+      <title>Hello World</title>
+      <link>https://yaoyaomeng.github.io/post/helloWorld/</link>
+      <pubDate>Sat, 07 Dec 2019 11:02:12 +0800</pubDate>
+      
+      <guid>https://yaoyaomeng.github.io/post/helloWorld/</guid>
+      <description>博客采用hugo+github搭建而成. 主题为maupassant； 本博客主要记录学习笔记和一些自己的心得体会。</description>
+    </item>
+    
+    <item>
+      <title>Tools</title>
+      <link>https://yaoyaomeng.github.io/tools/</link>
+      <pubDate>Sat, 07 Dec 2019 10:57:37 +0800</pubDate>
+      
+      <guid>https://yaoyaomeng.github.io/tools/</guid>
+      <description>工具列表 还没有添加</description>
+    </item>
+    
+    <item>
+      <title>关于我</title>
+      <link>https://yaoyaomeng.github.io/about/</link>
+      <pubDate>Sat, 07 Dec 2019 10:05:01 +0800</pubDate>
+      
+      <guid>https://yaoyaomeng.github.io/about/</guid>
+      <description>简介 带专生(嵌入式技术与应用.在读) emai: adiminxyz@qq.com github: https://github.com/yaoyaomeng</description>
+    </item>
+    
+    <item>
+      <title>归档</title>
+      <link>https://yaoyaomeng.github.io/archives/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yaoyaomeng.github.io/archives/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>搜索</title>
+      <link>https://yaoyaomeng.github.io/search/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yaoyaomeng.github.io/search/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
