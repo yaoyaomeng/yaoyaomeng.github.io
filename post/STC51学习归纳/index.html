@@ -116,7 +116,9 @@
     <li><a href="#heading">单片机原理图</a></li>
     <li><a href="#led">控制led</a></li>
     <li><a href="#heading1">数码管</a></li>
-    <li><a href="#heading2">中断</a></li>
+    <li><a href="#heading2">独立按键</a></li>
+    <li><a href="#heading3">矩阵按键</a></li>
+    <li><a href="#heading4">中断</a></li>
   </ul>
 </nav>
         </div>
@@ -286,6 +288,22 @@ void main(){
 		
 }
 
+</code></pre><p>呼吸灯</p>
+<p>这里他通过控制电平速度来达到id的亮暗程度</p>
+<pre><code>void main()
+{
+	int t=500; int n=0;
+	while(1)
+	{
+		for(n=1;n&lt;t;n++)
+		{	
+		P2=0xff;  //这里是led控制io口
+		delay(n);
+		P2=0xfe;
+		delay(t-n);
+		}	
+	}	
+}
 </code></pre><h2 id="heading1">数码管</h2>
 <p>数码管分为共阴和共阳,b为共阳输入低电平，c为共阴输入高电平有效
 <img src="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/wh%3D600%2C800/sign=5dd66231b6b7d0a27b9c0c9bfbdf5a31/63d0f703918fa0ecf8186a8e229759ee3c6ddb52.jpg" alt="数码管原理图"></p>
@@ -400,7 +418,80 @@ void delay(uint a){
 		while(a--);
 	}
 }
-</code></pre><h2 id="heading2">中断</h2>
+</code></pre><h2 id="heading2">独立按键</h2>
+<p>当独立按键还没有按下时，51单片机io口有上拉电阻默认高电平，当按下时变为低电平，但是因为机械特性会有抖动，这里采用软件消抖</p>
+<p>大概几毫秒过后如果还是低电平则执行操作点亮led</p>
+<pre><code>void passkeyBute(){
+		if(Key1 == 0){
+			delay(1000);
+			If(Key1==0)
+			{
+			led1 = 0; //点亮led
+			}
+		}
+}
+
+</code></pre><h2 id="heading3">矩阵按键</h2>
+<p>这里采用行列扫描 消抖也可以用上面独立按键的方法，
+高四位全部输出低电平，低四位输出高电平。当接收到的数据，低四位不全为高电平时，说明有按键按下，然后通过接收的数据值，判断是哪一列有按键按下，然后再反过来，高四位输出高电平，低四位输
+出低电平，然后根据接收到的高四位的值判断是那一行有按键按下，这样就能够确定是哪一个按键按下了。</p>
+<pre><code>void KeyDown(void)
+{
+	char a=0;
+	P1=0x0f;
+	
+	if(P1!=0x0f)
+	{
+		delay(1000);
+		if(GPIO_KEY!=0x0f)
+		{	
+			//列
+			P1=0X0F;
+			switch(P1)
+			{
+				case(0X07):	
+				KeyValue=0;
+				break;
+				case(0X0b):	
+					KeyValue=1;
+				break;
+				case(0X0d): 
+					KeyValue=2;
+				break;
+				case(0X0e):	
+					KeyValue=3;
+				break;
+			}
+			//行
+			
+			P1=0XF0;
+			switch(P1)
+			{
+				case(0X70):	
+					KeyValue=KeyValue;
+				break;
+				case(0Xb0):	
+					KeyValue=KeyValue+4;
+				break;
+				case(0Xd0): 
+					KeyValue=KeyValue+8;
+				break;
+				case(0Xe0):	
+					KeyValue=KeyValue+12;
+				break;
+			}
+			
+		}
+
+		
+	}
+	while((a&lt;50)&amp;&amp;(P1!=0xf0))	 //检测按键松手检测
+	{
+		delay(100);
+		a++;
+	}
+}
+</code></pre><h2 id="heading4">中断</h2>
 <p>中断是单片机非常重要的一个概念，c51有5个中断源，c52有6个多了一个定时器</p>
 
                         </div>
