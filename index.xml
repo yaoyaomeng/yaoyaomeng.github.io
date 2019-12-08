@@ -6,10 +6,19 @@
     <description>Recent content on Xyz的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 07 Dec 2019 15:02:35 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 08 Dec 2019 11:24:18 +0800</lastBuildDate>
     
 	<atom:link href="https://yaoyaomeng.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>STC51学习归纳</title>
+      <link>https://yaoyaomeng.github.io/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/</link>
+      <pubDate>Sun, 08 Dec 2019 11:24:18 +0800</pubDate>
+      
+      <guid>https://yaoyaomeng.github.io/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/</guid>
+      <description>单片机原理图 控制led #include &amp;lt;reg52.h&amp;gt; unsigned int a; sbit LED1 = P2^0; //sbit定义特殊功能寄存器的位变量，这里是定义P2的0位也就是控制led的第一个灯 sbit LED2 = P2^1; sbit LED3 = P2^2; sbit LED4 = P2^3; void main(){ a = 3000; while(1){ LED1 = 0; //这里是给低电平亮 while(a--); //进行延迟，如果不写会让led一直亮，因为电平来的太快了 LED1 = 1; while(a--); LED2 = 0; while(a--); LED2 = 1; while(a--); LED3 = 0; while(a--);</description>
+    </item>
     
     <item>
       <title>C语言指针</title>

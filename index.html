@@ -6,7 +6,7 @@
     <meta name="generator" content="Hugo 0.60.1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    
     <link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/monokai.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/django.min.js"></script>
@@ -16,6 +16,37 @@
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/gradle.min.js"></script>
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
+    
+    <script language="javascript" type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        var a_idx = 0;
+        jQuery(document).ready(function($) {
+        $("body").click(function(e) {
+        var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正" ,"法治", "爱国", "敬业", "诚信", "友善");
+        var $i = $("<span/>").text(a[a_idx]);
+        a_idx = (a_idx + 1) % a.length;
+        var x = e.pageX,
+        y = e.pageY;
+        $i.css({
+        "z-index": 999999999999999999999999999999999999999999999999999999999999999999999,
+        "top": y - 20,
+        "left": x,
+        "position": "absolute",
+        "font-weight": "bold",
+        "color": "#ff6651"
+        });
+        $("body").append($i);
+        $i.animate({
+        "top": y - 180,
+        "opacity": 0
+        },
+        1500,
+        function() {
+        $i.remove();
+        });
+        });
+        });
+        </script>
 
     <title>Xyz的博客 | 一个大一嵌入式学生的博客</title>
     <meta property="og:title" content="Xyz的博客 | 一个大一嵌入式学生的博客">
@@ -77,6 +108,31 @@
 
             <div class="col-8" id="main">
                 <div class="res-cons">
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://yaoyaomeng.github.io/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/" title="STC51学习归纳" >STC51学习归纳</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019年12月8日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://yaoyaomeng.github.io/categories/%E5%8D%95%E7%89%87%E6%9C%BA">单片机</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                单片机原理图 控制led #include &lt;reg52.h&gt; unsigned int a; sbit LED1 = P2^0; //sbit定义特殊功能寄存器的位变量，这里是定义P2的0位也就是控制led的第一个灯 sbit LED2 = P2^1; sbit LED3 = P2^2; sbit LED4 = P2^3; void main(){ a = 3000; while(1){ LED1 = 0; //这里是给低电平亮 while(a--); //进行延迟，如果不写会让led一直亮，因为电平来的太快了 LED1 = 1; while(a--); LED2 = 0; while(a--); LED2 = 1; while(a--); LED3 = 0; while(a--);……
+                            </div>
+                            <p class="readmore"><a href="https://yaoyaomeng.github.io/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/">阅读全文</a></p>
+                        </article>
+                    
                     
 		    
                         <article class="post">
@@ -224,6 +280,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://yaoyaomeng.github.io/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/" title="STC51学习归纳">STC51学习归纳</a>
+    </li>
+    
+    <li>
         <a href="https://yaoyaomeng.github.io/post/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/" title="C语言指针">C语言指针</a>
     </li>
     
@@ -242,6 +302,8 @@
     
     <li><a href="https://yaoyaomeng.github.io/categories/C%E8%AF%AD%E8%A8%80/">C语言 (1)</a></li>
     
+    <li><a href="https://yaoyaomeng.github.io/categories/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机 (1)</a></li>
+    
     <li><a href="https://yaoyaomeng.github.io/categories/%E6%9D%82%E6%8A%80%E6%B5%85%E5%B0%9D/">杂技浅尝 (1)</a></li>
     
 </ul>
@@ -252,6 +314,8 @@
 <div class="tagcloud">
     
     <a href="https://yaoyaomeng.github.io/tags/c/">c</a>
+    
+    <a href="https://yaoyaomeng.github.io/tags/c51/">c51</a>
     
     <a href="https://yaoyaomeng.github.io/tags/%E6%8C%87%E9%92%88/">指针</a>
     

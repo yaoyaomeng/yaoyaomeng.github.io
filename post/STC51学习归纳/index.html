@@ -48,20 +48,20 @@
         });
         </script>
 
-    <title>C语言指针 | Xyz的博客</title>
-    <meta property="og:title" content="C语言指针 - Xyz的博客">
+    <title>STC51学习归纳 | Xyz的博客</title>
+    <meta property="og:title" content="STC51学习归纳 - Xyz的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-12-07T15:02:35&#43;08:00">
+    <meta property="article:published_time" content="2019-12-08T11:24:18&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2019-12-07T15:02:35&#43;08:00">
+    <meta property="article:modified_time" content="2019-12-08T11:24:18&#43;08:00">
         
     <meta name="Keywords" content="c语言,php,goxyz,XYZ,java,android,博客,项目管理,电路,硬件,stm32,80c51">
-    <meta name="description" content="C语言指针">
+    <meta name="description" content="STC51学习归纳">
         
     <meta name="author" content="xyz">
-    <meta property="og:url" content="https://yaoyaomeng.github.io/post/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/">
+    <meta property="og:url" content="https://yaoyaomeng.github.io/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -113,13 +113,10 @@
         <div id="virtual_toc_list" style="display: none">
             <nav id="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li><a href="#heading">指针</a></li>
-      </ul>
-    </li>
-    <li><a href="#heading1">指针的用法</a></li>
-    <li><a href="#heading2">函数指针</a></li>
+    <li><a href="#heading">单片机原理图</a></li>
+    <li><a href="#led">控制led</a></li>
+    <li><a href="#heading1">数码管</a></li>
+    <li><a href="#heading2">中断</a></li>
   </ul>
 </nav>
         </div>
@@ -229,16 +226,16 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">C语言指针</h1>
+                            <h1 class="post-title">STC51学习归纳</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2019年12月7日
+                            2019年12月8日
                         </date>
                         
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="https://yaoyaomeng.github.io/categories/C%E8%AF%AD%E8%A8%80">C语言</a></span>
+                                <span class="meta-category"><a href="https://yaoyaomeng.github.io/categories/%E5%8D%95%E7%89%87%E6%9C%BA">单片机</a></span>
                             
                         </div>
                         
@@ -255,81 +252,156 @@
                         </div>
                         
                         <div class="post-content">
-                            <h3 id="heading">指针</h3>
-<p>指针的作用可以通过内存地址来控制变量,定义指针时*p = &amp;变量名，指针会在计算机内存分配4个字节存放这个变量的首地址，*p叫指针变量</p>
-<h2 id="heading1">指针的用法</h2>
-<pre><code>#include &lt;stdio.h&gt;
-int main(){
-  int a = 20;
-  int *p;
-  p = &amp;a;
-  *p = 25;
-  printf(&quot;%d \n&quot;,a);
-  return 0;
-}
-</code></pre><p>此时输出为25</p>
-<p>把*p可以当作a进行赋值操作;</p>
-<p>在数组中的用法：</p>
-<pre><code>#include &lt;stdio.h&gt;
+                            <h2 id="heading">单片机原理图</h2>
+<p><img src="https://s2.ax1x.com/2019/12/08/QULy34.png" alt="avatar"></p>
+<h2 id="led">控制led</h2>
+<pre><code>#include &lt;reg52.h&gt;
+unsigned int a;
+sbit LED1 = P2^0;   //sbit定义特殊功能寄存器的位变量，这里是定义P2的0位也就是控制led的第一个灯
+sbit LED2 = P2^1;
+sbit LED3 = P2^2;
+sbit LED4 = P2^3;
 
-void selectArrayMax1();
-
-int a[] = {1,2,3,4,5,9};
-
-int main(){
-    selectArrayMax1(&amp;a);
-    return 0;
-}
-
-void selectArrayMax1(int *q){
-     int size = sizeof(a) / sizeof(a[0]);
-     int max = *q;
-     int i;
-     for (i = 0; i &lt; size; q++,i++)
-     {
-        if(max &lt; *q)
-            max = *q;
-     }
-     printf(&quot;max %d \n&quot;,max);
-}
-</code></pre><p>这里的q++ 是数组地址加1但不是普通的在内存地址上加个一而已,这里的加一是数组内存地址加4个字节也就是首地址加4个字节，q默认为a[0]的地址，加一也就是a数组下标加1为a[1];for循环比大小最后的结果是max 9。</p>
-<pre><code>#include &lt;stdio.h&gt;
-const int MAX = 3;
-int main ()
-{
-   int  var[] = {10, 100, 200};
-   int  i, *ptr;
-   /* 指针中的数组地址 */
-   ptr = var;
-   for ( i = 0; i &lt; MAX; i++)
-   {
- 
-      printf(&quot;存储地址：var[%d] = %x\n&quot;, i, ptr );
-      printf(&quot;存储值：var[%d] = %d\n&quot;, i, *ptr );
- 
-      /* 移动到下一个位置 */
-      ptr++;
-   }
-   return 0;
-}
-</code></pre><p>输出结果：
-存储地址：var[0] = bf882b30</p>
-<p>存储值：var[0] = 10</p>
-<p>存储地址：of var[1] = bf882b34</p>
-<p>存储值： var[1] = 100</p>
-<p>存储地址：of var[2] = bf882b38</p>
-<p>存储值：var[2] = 200</p>
-<p>这里的ptr = var如果数组不写下标默认为var数组的首地址可以不用取地址符;</p>
-<h2 id="heading2">函数指针</h2>
-<pre><code>int add(int a,int b){
-  return a+b;
+void main(){
+		a = 3000;
+		while(1){
+			LED1 = 0; //这里是给低电平亮
+			while(a--); //进行延迟，如果不写会让led一直亮，因为电平来的太快了
+			LED1 = 1;
+			while(a--);
+			LED2 = 0;
+			while(a--);
+			LED2 = 1;
+			while(a--);
+			LED3 = 0;
+			while(a--);
+			LED3 = 1;
+			while(a--);
+			LED4 = 0;
+			while(a--);
+			LED4 = 1;
+			while(a--);
+		}
+		
+		
 }
 
-int main(){
-  lom (*q)(int a,int b) = &amp;add;
-  printf(&quot;%d&quot;,q(1,2));
+</code></pre><h2 id="heading1">数码管</h2>
+<p>数码管分为共阴和共阳,b为共阳输入低电平，c为共阴输入高电平有效
+<img src="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/wh%3D600%2C800/sign=5dd66231b6b7d0a27b9c0c9bfbdf5a31/63d0f703918fa0ecf8186a8e229759ee3c6ddb52.jpg" alt="数码管原理图"></p>
+<pre><code>#include &lt;reg52.h&gt;
+#define uint unsigned int
+#define uchar unsigned char
+
+
+void delay(uint xms);
+//这里定义了一个数组里面存放数码管共阴的码表
+uint code Duanarray[] = {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x77,0x7c,0x39,0x5e,0x79,0x71,0x00}; 
+
+void main(){
+	uint i,a;
+	a = 3000;
+	while(1){
+		for(i=0;i&lt;10;i++){
+		while(a--)
+		P0 = Duanarray[i];
+		}
+	}
+	
+	
+		
 }
-</code></pre><p>这里的函数指针q就是等价了add函数，可以用指针指向函数地址；</p>
+//这里是延迟函数
+void delay(uint xms){
+		uint i;
+		for(i = 100;i&gt;0;i--)
+				for(xms;i&gt;0;i--);
+}
+
+</code></pre><p>这里只能单独控制一个数码管，下面是通过74HC138译码器来进行多位显示</p>
+<p>74HC138真值表
+<img src="https://gss0.bdstatic.com/94o3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=745a3a691d950a7b613846966bb809bc/e61190ef76c6a7eff649c979fdfaaf51f3de6605.jpg" alt="avatar"></p>
+<pre><code>#include &lt;reg52.h&gt;
+
+#define uint unsigned int
+#define uchar unsigned char
+
+sbit LSA1 = P2^2;    //74HC138控制输入进行位选
+sbit LSA2 = P2^3;
+sbit LSA3 = P2^4;
+
+uchar code tubeArray[] = {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x77,0x7c,0x39,0x5e,0x79,0x71};  
+
+void digitalTubeSelect();
+void delay(uint a);
+
+void main(){
+		while(1){
+			digitalTubeSelect();
+		}
+}
+
+
+void digitalTubeSelect(){ 
+			uint i;
+			for(i=0;i&lt;8;i++){
+				switch(i){
+					case 0:
+						LSA1 = 0;
+						LSA2 = 0;
+						LSA3 = 0;
+						break;
+					case 1:
+						LSA1 = 1;
+						LSA2 = 0;
+						LSA3 = 0;
+						break;
+					case 2:
+						LSA1 = 0;
+						LSA2 = 1;
+						LSA3 = 0;
+						break;
+					case 3:
+						LSA1 = 1;
+						LSA2 = 1;
+						LSA3 = 0;
+						break;
+					case 4:
+						LSA1 = 0;
+						LSA2 = 0;
+						LSA3 = 1;
+						break;
+					case 5:
+						LSA1 = 1;
+						LSA2 = 0;
+						LSA3 = 1;
+						break;
+					case 6:
+						LSA1 = 0;
+						LSA2 = 1;
+						LSA3 = 1;
+						break;
+					case 7:
+						LSA1 = 1;
+						LSA2 = 1;
+						LSA3 = 1;
+						break;
+				}
+				delay(1000);
+				P0 = tubeArray[i];
+				delay(30000);
+				P0 = 0x00;
+			}
+
+}
+
+void delay(uint a){
+	if(a &gt; 0){
+		while(a--);
+	}
+}
+</code></pre><h2 id="heading2">中断</h2>
+<p>中断是单片机非常重要的一个概念，c51有5个中断源，c52有6个多了一个定时器</p>
 
                         </div>
 
@@ -337,7 +409,7 @@ int main(){
 <div class="post-archive">
     <ul class="post-copyright">
         <li><strong>原文作者：</strong><a rel="author" href="https://yaoyaomeng.github.io">xyz</a></li>
-        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://yaoyaomeng.github.io/post/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/">https://yaoyaomeng.github.io/post/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://yaoyaomeng.github.io/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/">https://yaoyaomeng.github.io/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/</a></li>
         <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
     </ul>
 </div>
@@ -351,6 +423,8 @@ int main(){
     <h2>See Also</h2>
     <ul class="listing">
         
+        <li><a href="/post/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/">C语言指针</a></li>
+        
         <li><a href="/post/helloWorld/">Hello World</a></li>
         
         <li><a href="/tools/">Tools</a></li>
@@ -358,8 +432,6 @@ int main(){
         <li><a href="/about/">关于我</a></li>
         
         <li><a href="/archives/">归档</a></li>
-        
-        <li><a href="/search/">搜索</a></li>
         
     </ul>
 </div>
@@ -369,9 +441,7 @@ int main(){
                             
                             <ul class="clearfix">
                                 
-                                <li><a href="https://yaoyaomeng.github.io/tags/c">c</a></li>
-                                
-                                <li><a href="https://yaoyaomeng.github.io/tags/%E6%8C%87%E9%92%88">指针</a></li>
+                                <li><a href="https://yaoyaomeng.github.io/tags/c51">c51</a></li>
                                 
                             </ul>
                             

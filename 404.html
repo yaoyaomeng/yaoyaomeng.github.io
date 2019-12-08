@@ -6,7 +6,7 @@
     <meta name="generator" content="Hugo 0.60.1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    
     <link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/monokai.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/django.min.js"></script>
@@ -16,6 +16,37 @@
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/gradle.min.js"></script>
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
+    
+    <script language="javascript" type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        var a_idx = 0;
+        jQuery(document).ready(function($) {
+        $("body").click(function(e) {
+        var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正" ,"法治", "爱国", "敬业", "诚信", "友善");
+        var $i = $("<span/>").text(a[a_idx]);
+        a_idx = (a_idx + 1) % a.length;
+        var x = e.pageX,
+        y = e.pageY;
+        $i.css({
+        "z-index": 999999999999999999999999999999999999999999999999999999999999999999999,
+        "top": y - 20,
+        "left": x,
+        "position": "absolute",
+        "font-weight": "bold",
+        "color": "#ff6651"
+        });
+        $("body").append($i);
+        $i.animate({
+        "top": y - 180,
+        "opacity": 0
+        },
+        1500,
+        function() {
+        $i.remove();
+        });
+        });
+        });
+        </script>
 
     <title>404 Page not found | Xyz的博客</title>
     <meta property="og:title" content="404 Page not found - Xyz的博客">
@@ -86,6 +117,8 @@
     <h2>See Also</h2>
     <ul class="listing">
         
+        <li><a href="/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/">STC51学习归纳</a></li>
+        
         <li><a href="/post/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/">C语言指针</a></li>
         
         <li><a href="/post/helloWorld/">Hello World</a></li>
@@ -93,8 +126,6 @@
         <li><a href="/tools/">Tools</a></li>
         
         <li><a href="/about/">关于我</a></li>
-        
-        <li><a href="/archives/">归档</a></li>
         
     </ul>
 </div>
