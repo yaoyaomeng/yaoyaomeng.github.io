@@ -53,20 +53,20 @@
          
 
 
-    <title>STC51学习归纳 | Xyz的博客</title>
-    <meta property="og:title" content="STC51学习归纳 - Xyz的博客">
+    <title>Android学习1 | Xyz的博客</title>
+    <meta property="og:title" content="Android学习1 - Xyz的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-12-08T11:24:18&#43;08:00">
+    <meta property="article:published_time" content="2019-12-22T21:17:26&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2019-12-08T11:24:18&#43;08:00">
+    <meta property="article:modified_time" content="2019-12-22T21:17:26&#43;08:00">
         
     <meta name="Keywords" content="c语言,php,goxyz,XYZ,java,android,博客,项目管理,电路,硬件,stm32,80c51">
-    <meta name="description" content="STC51学习归纳">
+    <meta name="description" content="Android学习1">
         
     <meta name="author" content="xyz">
-    <meta property="og:url" content="https://yaoyaomeng.github.io/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/">
+    <meta property="og:url" content="https://yaoyaomeng.github.io/post/android%E5%AD%A6%E4%B9%A01/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -118,12 +118,10 @@
         <div id="virtual_toc_list" style="display: none">
             <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading">单片机原理图</a></li>
-    <li><a href="#led">控制led</a></li>
-    <li><a href="#heading1">数码管</a></li>
-    <li><a href="#heading2">独立按键</a></li>
-    <li><a href="#heading3">矩阵按键</a></li>
-    <li><a href="#heading4">中断</a></li>
+    <li><a href="#heading">初始代码</a></li>
+    <li><a href="#heading1">切换活动</a></li>
+    <li><a href="#heading2">设置菜单</a></li>
+    <li><a href="#xml">练习xml布局</a></li>
   </ul>
 </nav>
         </div>
@@ -233,16 +231,16 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">STC51学习归纳</h1>
+                            <h1 class="post-title">Android学习1</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2019年12月8日
+                            2019年12月22日
                         </date>
                         
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="https://yaoyaomeng.github.io/categories/%E5%8D%95%E7%89%87%E6%9C%BA">单片机</a></span>
+                                <span class="meta-category"><a href="https://yaoyaomeng.github.io/categories/android">android</a></span>
                             
                         </div>
                         
@@ -259,319 +257,295 @@
                         </div>
                         
                         <div class="post-content">
-                            <h2 id="heading">单片机原理图</h2>
-<p><img src="https://s2.ax1x.com/2019/12/08/QULy34.png" alt="avatar"></p>
-<h2 id="led">控制led</h2>
-<pre><code>#include &lt;reg52.h&gt;
-unsigned int a;
-sbit LED1 = P2^0;   //sbit定义特殊功能寄存器的位变量，这里是定义P2的0位也就是控制led的第一个灯
-sbit LED2 = P2^1;
-sbit LED3 = P2^2;
-sbit LED4 = P2^3;
+                            <p>最近要参加嵌入式技术大赛，我负责小车的安卓控制部分，现在学习android的代码相关控制
+学习了3天的Java，学到集合我觉得的就差不多了，后面直接在安卓开发上练习，遇到不懂的Java知识
+在补充，我认为这样的学习方法是可行的，
+开发环境的使用的Android Studio 3.2,安装起来也是一波三折还好都搞定了。</p>
+<h2 id="heading">初始代码</h2>
+<pre><code>package com.example.xyz.testapp;
 
-void main(){
-		a = 3000;
-		while(1){
-			LED1 = 0; //这里是给低电平亮
-			while(a--); //进行延迟，如果不写会让led一直亮，因为电平来的太快了
-			LED1 = 1;
-			while(a--);
-			LED2 = 0;
-			while(a--);
-			LED2 = 1;
-			while(a--);
-			LED3 = 0;
-			while(a--);
-			LED3 = 1;
-			while(a--);
-			LED4 = 0;
-			while(a--);
-			LED4 = 1;
-			while(a--);
-		}
-		
-		
+import android.support.v7.app.AppCompatActivity;
+        import android.os.Bundle;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);       //调用父类方法
+        setContentView(R.layout.activity_main);   //加载布局
+    }
 }
+</code></pre><p>这是默认的布局这里setContentView加载了一个xml文件，这里的xml需要在AndroidManifest.xml中注册
+注册如下</p>
+<pre><code>&lt;activity
+            android:name=&quot;.FirstActivity&quot;
+            android:label=&quot;this FirstActivity&quot;&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
+                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+</code></pre><p>在后面的隐式Intent会使用到action和category，
+name里面参数是</p>
+<p>android.intent.action.MAIN：决定应用的入口Activity，也就是我们启动应用时首先显示哪一个Activity。
+android.intent.category.LAUNCHER：表示activity应该被列入系统的启动器(launcher)(允许用户启动它)。Launcher是安卓系统中的桌面启动器，是桌面UI的统称。</p>
+<h2 id="heading1">切换活动</h2>
+<pre><code>package com.example.xyz.activitytest;
 
-</code></pre><p>呼吸灯</p>
-<p>这里他通过控制电平速度来达到id的亮暗程度</p>
-<pre><code>void main()
-{
-	int t=500; int n=0;
-	while(1)
-	{
-		for(n=1;n&lt;t;n++)
-		{	
-		P2=0xff;  //这里是led控制io口
-		delay(n);
-		P2=0xfe;
-		delay(t-n);
-		}	
-	}	
-}
-</code></pre><h2 id="heading1">数码管</h2>
-<p>数码管分为共阴和共阳,b为共阳输入低电平，c为共阴输入高电平有效
-<img src="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/wh%3D600%2C800/sign=5dd66231b6b7d0a27b9c0c9bfbdf5a31/63d0f703918fa0ecf8186a8e229759ee3c6ddb52.jpg" alt="数码管原理图"></p>
-<pre><code>#include &lt;reg52.h&gt;
-#define uint unsigned int
-#define uchar unsigned char
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
+public class FirstActivity extends AppCompatActivity {
+   // Toast a;
 
-void delay(uint xms);
-//这里定义了一个数组里面存放数码管共阴的码表
-uint code Duanarray[] = {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x77,0x7c,0x39,0x5e,0x79,0x71,0x00}; 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.first_layout);  //设置主窗口
 
-void main(){
-	uint i,a;
-	a = 3000;
-	while(1){
-		for(i=0;i&lt;10;i++){
-		while(a--)
-		P0 = Duanarray[i];
-		}
-	}
-	
-	
-		
-}
-//这里是延迟函数
-void delay(uint xms){
-		uint i;
-		for(i = 100;i&gt;0;i--)
-				for(xms;i&gt;0;i--);
-}
+        Button button1 = (Button) findViewById(R.id.button_1); //创建一个view类转button类型
+        button1.setOnClickListener(new View.OnClickListener() {    //setOnClickListener这是一个接口
+                                       @Override
+                                       public void onClick(View v) {
+                                           //a =  Toast.makeText(FirstActivity.this,&quot;这是一个测试&quot;,Toast.LENGTH_SHORT);   //toast类
+                                           //a.show();
+                                           Intent intent = new Intent(FirstActivity.this,SecondActivity.class);
+                                           startActivity(intent);
+                                       }
+                                   }
+        );
 
-</code></pre><p>这里只能单独控制一个数码管，下面是通过74HC138译码器来进行多位显示</p>
-<p>74HC138真值表
-<img src="https://gss0.bdstatic.com/94o3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=745a3a691d950a7b613846966bb809bc/e61190ef76c6a7eff649c979fdfaaf51f3de6605.jpg" alt="avatar"></p>
-<pre><code>#include &lt;reg52.h&gt;
+        Button button2 = (Button) findViewById(R.id.button_2);
+        button2.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View v) {
+                                            String data = &quot;这是一个测试能不能传递的文本&quot;;
+                                            Intent intent = new Intent(FirstActivity.this,SecondActivity.class);
+                                            intent.putExtra(&quot;extra_data&quot;,data);
+                                            startActivity(intent);
+                                       }
+                                   }
 
-#define uint unsigned int
-#define uchar unsigned char
+        );
 
-sbit LSA1 = P2^2;    //74HC138控制输入进行位选
-sbit LSA2 = P2^3;
-sbit LSA3 = P2^4;
-
-uchar code tubeArray[] = {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x77,0x7c,0x39,0x5e,0x79,0x71};  
-
-void digitalTubeSelect();
-void delay(uint a);
-
-void main(){
-		while(1){
-			digitalTubeSelect();
-		}
-}
+        Button button3 = (Button) findViewById(R.id.button_3);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FirstActivity.this,dataActivity.class);
+                startActivityForResult(intent,1);
+            }
+        });
 
 
-void digitalTubeSelect(){ 
-			uint i;
-			for(i=0;i&lt;8;i++){
-				switch(i){
-					case 0:
-						LSA1 = 0;
-						LSA2 = 0;
-						LSA3 = 0;
-						break;
-					case 1:
-						LSA1 = 1;
-						LSA2 = 0;
-						LSA3 = 0;
-						break;
-					case 2:
-						LSA1 = 0;
-						LSA2 = 1;
-						LSA3 = 0;
-						break;
-					case 3:
-						LSA1 = 1;
-						LSA2 = 1;
-						LSA3 = 0;
-						break;
-					case 4:
-						LSA1 = 0;
-						LSA2 = 0;
-						LSA3 = 1;
-						break;
-					case 5:
-						LSA1 = 1;
-						LSA2 = 0;
-						LSA3 = 1;
-						break;
-					case 6:
-						LSA1 = 0;
-						LSA2 = 1;
-						LSA3 = 1;
-						break;
-					case 7:
-						LSA1 = 1;
-						LSA2 = 1;
-						LSA3 = 1;
-						break;
-				}
-				delay(1000);
-				P0 = tubeArray[i];
-				delay(30000);
-				P0 = 0x00;
-			}
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){    //设置菜单
+        getMenuInflater().inflate(R.menu.main,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.add_item:
+                Toast.makeText(FirstActivity.this, &quot;1&quot;, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(FirstActivity.this,SecondActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.remove_item:
+                Toast.makeText(FirstActivity.this, &quot;2&quot;, Toast.LENGTH_SHORT).show();
+                break;
+                default:
+        }
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data){
+        switch (requestCode){
+            case 1:
+                if (resultCode == RESULT_OK){
+                    String returnData = data.getStringExtra(&quot;data123&quot;);
+                    Toast.makeText(FirstActivity.this,returnData,Toast.LENGTH_SHORT).show();
+                }
+                break;
+               default:
+        }
+
+    }
+
+
 
 }
+</code></pre><p>开始创建Button对象,button2.setOnClickListener为button注册点击事件这里的使用的内部类的方法，实现了onClick抽象的方法
+Intent intent = new Intent(FirstActivity.this,SecondActivity.class); intent实例化实现在各个活动中切换这里使用的是显式Intent来切换
+第一个类所在活动，第二个参数是要切换的活动，最后使用startActivity(intent);来切换,隐式Intent这样用</p>
+<p>Intent intent = new Intent(&ldquo;com.example.xyz.activitytest.ACTION&rdquo;);    //这里的com.example.xyz.activitytest.ACTION是一个activity里面的action标签内容</p>
+<p>Intent通过下面的属性来描述的某个意图：</p>
+<ol>
+<li>
+<p>action（动作）: 用来表示意图的动作，如：查看，发邮件，打电话</p>
+</li>
+<li>
+<p>category（类别）: 用来表示动作的类别。</p>
+</li>
+<li>
+<p>data（数据）: 表示与动作要操作的数据。如：查看指定的联系人</p>
+</li>
+<li>
+<p>type（数据类型）: 对data类型的描述。</p>
+</li>
+<li>
+<p>extras（附件信息）: 附件信息。如：详细资料，一个文件，某事。</p>
+</li>
+<li>
+<p>component（目标组件）: 目标组件。</p>
+</li>
+</ol>
+<p>intent.putExtra(&ldquo;extra_data&rdquo;,data);向下一个活动传递一个值，在了一个要接收的数据的活动使用</p>
+<p>Intent intent = getIntent();  //获取Activity的Intent对象</p>
+<p>String data = intent.getStringExtra(&ldquo;extra_data&rdquo;);</p>
+<p>这里就获取到了上一个活动传递回来的值。</p>
+<h2 id="heading2">设置菜单</h2>
+<p>这里的代码是设置菜单, getMenuInflater()//获取当前菜单的对象；</p>
+<pre><code>@Override
+    public boolean onCreateOptionsMenu(Menu menu){    //设置菜单
+        getMenuInflater().inflate(R.menu.main,menu);
+        return true;
+    }
 
-void delay(uint a){
-	if(a &gt; 0){
-		while(a--);
-	}
-}
-</code></pre><h2 id="heading2">独立按键</h2>
-<p>当独立按键还没有按下时，51单片机io口有上拉电阻默认高电平，当按下时变为低电平，但是因为机械特性会有抖动，这里采用软件消抖</p>
-<p>大概几毫秒过后如果还是低电平则执行操作点亮led</p>
-<pre><code>void passkeyBute(){
-		if(Key1 == 0){
-			delay(1000);
-			If(Key1==0)
-			{
-			led1 = 0; //点亮led
-			}
-		}
-}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.add_item:
+                Toast.makeText(FirstActivity.this, &quot;1&quot;, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(FirstActivity.this,SecondActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.remove_item:
+                Toast.makeText(FirstActivity.this, &quot;2&quot;, Toast.LENGTH_SHORT).show();
+                break;
+                default:
+        }
+        return true;
+    }
+</code></pre><p>在使用inflate方法第一个参数是加载菜单布局文件，第二个参数是要填充的菜单;
+菜单布局文件</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+     &lt;item
+android:id = &quot;@+id/add_item&quot;
+android:title=&quot;Add&quot;
+    /&gt;
+&lt;item
+android:id = &quot;@+id/remove_item&quot;
+android:title=&quot;remove&quot; /&gt;
+&lt;/menu&gt;
+</code></pre><p>onOptionsItemSelected点击的item事件</p>
+<h2 id="xml">练习xml布局</h2>
+<p>类似html写法，不过现在的Android studio支持拖拉组件，不过在复杂的布局还是使用写xml比较好。</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.MainActivity&quot;&gt;
 
-</code></pre><h2 id="heading3">矩阵按键</h2>
-<p>这里采用行列扫描 消抖也可以用上面独立按键的方法，
-高四位全部输出低电平，低四位输出高电平。当接收到的数据，低四位不全为高电平时，说明有按键按下，然后通过接收的数据值，判断是哪一列有按键按下，然后再反过来，高四位输出高电平，低四位输
-出低电平，然后根据接收到的高四位的值判断是那一行有按键按下，这样就能够确定是哪一个按键按下了。</p>
-<pre><code>void KeyDown(void)
-{
-	char a=0;
-	P1=0x0f;
-	
-	if(P1!=0x0f)
-	{
-		delay(1000);
-		if(GPIO_KEY!=0x0f)
-		{	
-			//列
-			P1=0X0F;
-			switch(P1)
-			{
-				case(0X07):	
-				KeyValue=0;
-				break;
-				case(0X0b):	
-					KeyValue=1;
-				break;
-				case(0X0d): 
-					KeyValue=2;
-				break;
-				case(0X0e):	
-					KeyValue=3;
-				break;
-			}
-			//行
-			
-			P1=0XF0;
-			switch(P1)
-			{
-				case(0X70):	
-					KeyValue=KeyValue;
-				break;
-				case(0Xb0):	
-					KeyValue=KeyValue+4;
-				break;
-				case(0Xd0): 
-					KeyValue=KeyValue+8;
-				break;
-				case(0Xe0):	
-					KeyValue=KeyValue+12;
-				break;
-			}
-			
-		}
+    &lt;RelativeLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;&gt;
 
-		
-	}
-	while((a&lt;50)&amp;&amp;(P1!=0xf0))	 //检测按键松手检测
-	{
-		delay(100);
-		a++;
-	}
-}
-</code></pre><h2 id="heading4">中断</h2>
-<p>中断是单片机非常重要的一个概念，c51有5个中断源，c52有6个多了一个定时器
-<img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3880252843,1280585862&amp;fm=26&amp;gp=0.jpg" alt="avatar">
-使用中断前需要打开中断开关，使用中断中断允许寄存器IE</p>
-<pre><code>EA   //中断总开关
+        &lt;LinearLayout
+            android:layout_width=&quot;match_parent&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_marginTop=&quot;60dp&quot;
+            android:padding=&quot;20dp&quot;
+            android:orientation=&quot;vertical&quot;
+            &gt;
 
-ET2  //定时器2中断开关
+            &lt;TextView
+                android:layout_width=&quot;wrap_content&quot;
+                android:layout_height=&quot;wrap_content&quot;
+                android:layout_marginLeft=&quot;1dp&quot;
+                android:textSize=&quot;30sp&quot;
+                android:drawableLeft=&quot;@mipmap/ic_launcher&quot;
+                android:text=&quot;Signin&quot;
+                /&gt;
 
-ES   //串口通信中断开关
+            &lt;EditText
+                android:layout_marginTop=&quot;30dp&quot;
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;match_parent&quot;
+                android:hint=&quot;你的邮箱账号&quot;
+                /&gt;
 
-ET1  //定时器1中断开关
+            &lt;EditText
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;match_parent&quot;
+                android:hint=&quot;你的密码&quot;
+                /&gt;
 
-EX1  //外部1中断中断开关
+            &lt;Button
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;wrap_content&quot;
+                android:text=&quot;登录&quot;
+                /&gt;
 
-ET0  // 定时器0中断开关
 
-EX0  //外部1中断中断开关
-</code></pre>
-<p>优先级控制中断优先级寄存器IP
-PS&mdash;串行口中断优先级控制位。</p>
-<p>PS=1，串行口中断定义为高优先级中断。</p>
-<p>PS=0，串行口中断定义为低优先级中断。</p>
-<p>PT1&mdash;定时器/计数器1中断优先级控制位。</p>
-<p>PT1=1，定时器/计数器1中断定义为高优先级中断。</p>
-<p>PT1=0，定时器/计数器1中断定义为低优先级中断。</p>
-<p>PX1&mdash;外部中断1中断优先级控制位。</p>
-<p>PX1=1，外部中断1中断定义为高优先级中断。</p>
-<p>PX1=0，外部中断1中断定义为低优先级中断。</p>
-<p>PT0&mdash;定时器/计数器0中断优先级控制位。</p>
-<p>PT0=1，定时器/计数器0中断定义为高优先级中断。</p>
-<p>PT0=0，定时器/计数器0中断定义为低优先级中断。</p>
-<p>PX0&mdash;外部中断0中断优先级控制位。</p>
-<p>PX0=1，外部中断0中断定义为高优先级中断。</p>
-<p>PX0=0，外部中断0中断定义为低优先级中断。</p>
-<p>先看外部中断的使用</p>
-<pre><code>#include &lt;reg52.h&gt;
-#include &lt;stdio.h&gt;
-#define uint unsigned int
-#define uchar unsigned char
+            &lt;RelativeLayout
+                android:layout_marginTop=&quot;20dp&quot;
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;match_parent&quot;&gt;
+                &lt;TextView
+                    android:layout_width=&quot;wrap_content&quot;
+                    android:layout_height=&quot;wrap_content&quot;
+                    android:text=&quot;忘记密码&quot;
+                    android:textColor=&quot;#f90653&quot;
+                    /&gt;
 
-sbit led1 = P2^0;
-void main(){
-	while(1){
-		keypass();
-	}
-}
+                &lt;TextView
+                    android:layout_width=&quot;wrap_content&quot;
+                    android:layout_height=&quot;wrap_content&quot;
+                    android:layout_alignParentRight=&quot;true&quot;
+                    android:text=&quot;新用户注册&quot;
+                    android:textColor=&quot;#f90653&quot;
+                    /&gt;
+            &lt;/RelativeLayout&gt;
+        &lt;/LinearLayout&gt;
 
-void mod(){
-	EA = 1; //开关中断
-	//外部中断
-	EX0 = 1;   //设置中断允许位
-	IT0 = 1;	//设置中断方式负跳变沿触发
-}
 
-void interrupt1() interrupt 0 {    
-		if(key2 == 0){
-				P2 = 0xff;
-				led1 = ~led1;
-		}
-				
-}
+        &lt;TextView
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:textSize=&quot;10sp&quot;
+            android:layout_centerHorizontal=&quot;true&quot;
+            android:layout_alignParentBottom=&quot;true&quot;
+            android:layout_marginBottom=&quot;30dp&quot;
+            android:text=&quot;登录即代表阅读并同意服务条款&quot;
+            /&gt;
+    &lt;/RelativeLayout&gt;
 
-void keypass(){	
-		if(key2 == 0){
-			P2 = 0xff;
-			delay(1000);
-		}
-}
-</code></pre>
+&lt;/android.support.constraint.ConstraintLayout&gt;
+</code></pre><p>效果如下
+<img src="https://s2.ax1x.com/2019/12/22/QzTloq.png" alt="avatar"></p>
+
                         </div>
 
                         
 <div class="post-archive">
     <ul class="post-copyright">
         <li><strong>原文作者：</strong><a rel="author" href="https://yaoyaomeng.github.io">xyz</a></li>
-        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://yaoyaomeng.github.io/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/">https://yaoyaomeng.github.io/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://yaoyaomeng.github.io/post/android%E5%AD%A6%E4%B9%A01/">https://yaoyaomeng.github.io/post/android%E5%AD%A6%E4%B9%A01/</a></li>
         <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
     </ul>
 </div>
@@ -585,6 +559,8 @@ void keypass(){
     <h2>See Also</h2>
     <ul class="listing">
         
+        <li><a href="/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/">STC51学习归纳</a></li>
+        
         <li><a href="/post/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/">C语言指针</a></li>
         
         <li><a href="/post/helloWorld/">Hello World</a></li>
@@ -592,8 +568,6 @@ void keypass(){
         <li><a href="/tools/">Tools</a></li>
         
         <li><a href="/about/">关于我</a></li>
-        
-        <li><a href="/archives/">归档</a></li>
         
     </ul>
 </div>
@@ -603,7 +577,9 @@ void keypass(){
                             
                             <ul class="clearfix">
                                 
-                                <li><a href="https://yaoyaomeng.github.io/tags/c51">c51</a></li>
+                                <li><a href="https://yaoyaomeng.github.io/tags/android">android</a></li>
+                                
+                                <li><a href="https://yaoyaomeng.github.io/tags/%E5%AE%89%E5%8D%93">安卓</a></li>
                                 
                             </ul>
                             
