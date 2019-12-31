@@ -6,10 +6,19 @@
     <description>Recent content in android on Xyz的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 22 Dec 2019 21:17:26 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 28 Dec 2019 12:53:25 +0800</lastBuildDate>
     
 	<atom:link href="https://yaoyaomeng.github.io/categories/android/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Android学习2</title>
+      <link>https://yaoyaomeng.github.io/post/android%E5%AD%A6%E4%B9%A02/</link>
+      <pubDate>Sat, 28 Dec 2019 12:53:25 +0800</pubDate>
+      
+      <guid>https://yaoyaomeng.github.io/post/android%E5%AD%A6%E4%B9%A02/</guid>
+      <description>ListView ListView是安卓之前常用的列表View组件，现在用的最多RecylerView不过还是要了解个大概， 代码如下 package com.example.xyz.baseadapterlearn; import android.support.v7.app.AppCompatActivity; import android.os.Bundle; import android.widget.ListView; import android.widget.SimpleAdapter; import java.util.ArrayList; import java.util.HashMap; import java.util.List; public class test1Activity extends AppCompatActivity { public List&amp;lt;HashMap&amp;lt;String,String&amp;gt;&amp;gt; data; @Override protected void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); setContentView(R.layout.activity_test1); mmmset(); SimpleAdapter simpleAdapter = new SimpleAdapter(test1Activity.this,data,android.R.layout.simple_list_item_2,new String[] {&amp;quot;text1&amp;quot;,&amp;quot;text2&amp;quot;}, new int[] {android.R.id.text1,android.R.id.text2}); ListView listView = findViewById(R.id.listview_1); listView.setAdapter(simpleAdapter); } public void mmmset(){ data = new ArrayList&amp;lt;&amp;gt;(); for(int i = 0;i&amp;lt;15;i++){ HashMap&amp;lt;String,String&amp;gt; map = new HashMap&amp;lt;&amp;gt;(); map.put(&amp;quot;te</description>
+    </item>
     
     <item>
       <title>Android学习1</title>
