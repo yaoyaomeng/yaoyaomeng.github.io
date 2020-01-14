@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Xyz的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 28 Dec 2019 12:53:25 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jan 2020 15:36:55 +0800</lastBuildDate>
     
 	<atom:link href="https://yaoyaomeng.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Fragment</title>
+      <link>https://yaoyaomeng.github.io/post/Fragment/</link>
+      <pubDate>Tue, 14 Jan 2020 15:36:55 +0800</pubDate>
+      
+      <guid>https://yaoyaomeng.github.io/post/Fragment/</guid>
+      <description>fragment我的理解就是有一个小的activity,也可包含布局也有生命周期，可嵌入到activity中 静态添加 在main布局添加fragment标签，这里的android:name=&amp;quot;com.example.xyz.fragmentview.FragmentOne</description>
+    </item>
     
     <item>
       <title>Android学习2</title>

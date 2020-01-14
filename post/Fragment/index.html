@@ -58,20 +58,20 @@
         <div class="snow-container"></div>
 
 
-    <title>Tools | Xyz的博客</title>
-    <meta property="og:title" content="Tools - Xyz的博客">
+    <title>Fragment | Xyz的博客</title>
+    <meta property="og:title" content="Fragment - Xyz的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-12-07T10:57:37&#43;08:00">
+    <meta property="article:published_time" content="2020-01-14T15:36:55&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2019-12-07T10:57:37&#43;08:00">
+    <meta property="article:modified_time" content="2020-01-14T15:36:55&#43;08:00">
         
     <meta name="Keywords" content="c语言,php,goxyz,XYZ,java,android,博客,项目管理,电路,硬件,stm32,80c51">
-    <meta name="description" content="Tools">
+    <meta name="description" content="Fragment">
         
     <meta name="author" content="xyz">
-    <meta property="og:url" content="https://yaoyaomeng.github.io/tools/">
+    <meta property="og:url" content="https://yaoyaomeng.github.io/post/Fragment/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -103,9 +103,9 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="https://yaoyaomeng.github.io">首页</a>
+                    <a class="current" href="https://yaoyaomeng.github.io">首页</a>
                     
-                    <a class="current" href="https://yaoyaomeng.github.io/tools/" title="工具">工具</a>
+                    <a  href="https://yaoyaomeng.github.io/tools/" title="工具">工具</a>
                     
                     <a  href="https://yaoyaomeng.github.io/archives/" title="归档">归档</a>
                     
@@ -120,6 +120,112 @@
 
 <div id="body">
         
+        <div id="virtual_toc_list" style="display: none">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#heading">静态添加</a></li>
+    <li><a href="#heading1">动态添加</a></li>
+  </ul>
+</nav>
+        </div>
+        <div id="float_toc_div" style="margin: 10px;border: 1px solid gray;z-index:99999;display: none;">
+            <header style="background-color: #f3f3f3;color: black;border-bottom: 1px solid gray;padding: 10px 10px 10px 10px;">
+                <strong id="toc_btn_open" style="color: black;font-size: large;">目录</strong>
+                <strong id="toc_btn_close" style="color: black;font-size: large;float: right">╳</strong>
+            </header>
+            <div id="toc_list" style="background-color: #f3f3f3;color: black;padding: 10px;">
+        
+            </div>
+        </div>
+        <style type="text/css">
+            #float_toc_div {
+                position: fixed;
+                display: none;
+                 
+                height: auto;
+                font-size: 13px;
+            }
+        
+            #toc_list a:hover,
+            #toc_list a:active {
+                color: #ba3925;
+            }
+        </style>
+        <script>
+            window.onload = function () {
+                let tocNavElem = document.getElementById("TableOfContents");
+                let floatTocDivElem = document.getElementById("float_toc_div");
+                let tocListElem = floatTocDivElem.getElementsByTagName('div')[0];
+                let colGroupElem = document.getElementById("body").getElementsByClassName("col-group")[0]
+                let floatTocWidth = (document.body.clientWidth - colGroupElem.offsetWidth) / 2 - 16;
+                var useFloatToc = false;
+
+                if (floatTocWidth >= 100) {
+                    useFloatToc = true;
+                    document.getElementById("toc_list").appendChild(tocNavElem);
+                    floatTocDivElem.style.display = 'block';
+                    floatTocDivElem.style.width = floatTocWidth + 'px';
+                    top();
+                    floatTocDivElem.style.left = '0px';
+
+                    function top() {
+                        if (document.getElementsByClassName('container')[0].offsetWidth <= 720) {
+                            floatTocDivElem.style.top = '0px';
+                        } else {
+                            floatTocDivElem.style.top = window.innerHeight / 9 + 'px';
+                        }
+                    }
+
+                    function ishide() {
+                        if (document.getElementsByClassName('container')[0].offsetWidth <= 720) {
+                            floatTocDivElem.style.top = '0px';
+                        } else {
+                            floatTocDivElem.style.display = 'block';
+                        }
+                    }
+
+                    window.onscroll = function () {
+                        ishide();
+                        if ((document.documentElement.scrollTop != 0) && (floatTocDivElem.style.display == 'block')) {
+                            top();
+                        }
+                    };
+
+                    window.onresize = function () {
+                        ishide();
+                    }
+
+                    document.getElementById("toc_btn_open").addEventListener('click', function () {
+                        switch (tocListElem.style.display) {
+                            case "none":
+                                document.getElementById("toc_btn_close").style.display = "";
+                                tocListElem.style.display = "";
+                                floatTocDivElem.getElementsByTagName("header")[0].style.borderBottom = "1px solid gray";
+                                break;
+                            default:
+                                break;
+                        }
+                    }, false);
+
+                    document.getElementById("toc_btn_close").addEventListener('click', function () {
+                        switch (tocListElem.style.display) {
+                            case "":
+                                document.getElementById("toc_btn_close").style.display = "none";
+                                tocListElem.style.display = "none";
+                                floatTocDivElem.getElementsByTagName("header")[0].style.borderBottom = "";
+                                break;
+                            default:
+                                break;
+                        }
+                    }, false);
+                } else {
+                    let fixedTocElem = document.getElementsByClassName("toc-article")[0];
+                    fixedTocElem.appendChild(tocNavElem);
+                    fixedTocElem.parentElement.style.display = "";
+                }
+                document.getElementById("virtual_toc_list").remove();
+            };   
+        </script>
         
     <div class="container">
         <div class="col-group">
@@ -128,11 +234,18 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">Tools</h1>
+                            <h1 class="post-title">Fragment</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2019年12月7日
+                            2020年1月14日
                         </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://yaoyaomeng.github.io/categories/android">android</a></span>
+                            
+                        </div>
                         
                         
                         <div class="post-meta">
@@ -140,13 +253,125 @@
                         </div>
                         
                         
+                        <div class="clear" style="display: none">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                            </div>
+                        </div>
+                        
                         <div class="post-content">
-                            <h3 id="heading">工具列表</h3>
-<p>还没有添加</p>
+                            <p>fragment我的理解就是有一个小的activity,也可包含布局也有生命周期，可嵌入到activity中</p>
+<h2 id="heading">静态添加</h2>
+<p>在main布局添加fragment标签，这里的android:name=&quot;com.example.xyz.fragmentview.FragmentOne&quot;这里的为继承Fragment的类</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.constraint.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    tools:context=&quot;.MainActivity&quot;&gt;
 
+   &lt;Button
+       android:id=&quot;@+id/button1&quot;
+       android:layout_width=&quot;match_parent&quot;
+       android:layout_height=&quot;wrap_content&quot;
+       android:text=&quot;切换fragment&quot;
+       /&gt;
+
+   &lt;LinearLayout
+       android:id=&quot;@+id/line1&quot;
+       android:layout_width=&quot;match_parent&quot;
+       android:layout_height=&quot;match_parent&quot;
+       android:orientation=&quot;horizontal&quot;&gt;
+      &lt;fragment
+          android:id=&quot;@+id/fragment1&quot;
+          android:name=&quot;com.example.xyz.fragmentview.FragmentOne&quot;
+          android:layout_width=&quot;match_parent&quot;
+          android:layout_height=&quot;match_parent&quot;
+          /&gt;
+
+   &lt;/LinearLayout&gt;
+
+
+
+&lt;/android.support.constraint.ConstraintLayout&gt;
+</code></pre><p>在新建fragment1.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:orientation=&quot;vertical&quot;
+    android:gravity=&quot;center&quot;
+    &gt;
+    &lt;TextView
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:text=&quot;我是A Fragment&quot;
+        android:layout_gravity=&quot;center&quot;
+        /&gt;
+&lt;/LinearLayout&gt;
+</code></pre><p>在新建继承Fragment的类，返回</p>
+<pre><code>package com.example.xyz.fragmentview;
+
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+public class FragmentOne extends Fragment {
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment1,container,false);
+        return view;
+    }
+}
+</code></pre><p>这里就已经静态的添加完成了。</p>
+<h2 id="heading1">动态添加</h2>
+<p>在之前的基础上新建FragmenTwo类，在建fragment2.xml</p>
+<pre><code>public class FragmentTwo extends Fragment {
+    @Override
+    public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment2,container,false);
+        return view;
+    }
+}
+</code></pre><p>在MainActivity.java里修改代码为</p>
+<pre><code>public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button button = this.findViewById(R.id.button1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getSupportFragmentManager();  //获取FragmentManager
+                FragmentTransaction transaction = fragmentManager.beginTransaction(); //开启一个事务
+                transaction.replace(R.id.fragment1,new FragmentTwo()); //替换为FragmentTwo返回的view
+                transaction.commit();  //最后提交
+            }
+        });
+    }
+}
+
+</code></pre>
                         </div>
 
                         
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://yaoyaomeng.github.io">xyz</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://yaoyaomeng.github.io/post/Fragment/">https://yaoyaomeng.github.io/post/Fragment/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
 
 
                         
@@ -155,11 +380,15 @@
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/about/">关于我</a></li>
+        <li><a href="/post/android%E5%AD%A6%E4%B9%A02/">Android学习2</a></li>
         
-        <li><a href="/archives/">归档</a></li>
+        <li><a href="/post/android%E5%AD%A6%E4%B9%A01/">Android学习1</a></li>
         
-        <li><a href="/search/">搜索</a></li>
+        <li><a href="/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/">STC51学习归纳</a></li>
+        
+        <li><a href="/post/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/">C语言指针</a></li>
+        
+        <li><a href="/post/helloWorld/">Hello World</a></li>
         
     </ul>
 </div>
@@ -167,7 +396,13 @@
 
                         <div class="post-meta meta-tags">
                             
-                            没有标签
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://yaoyaomeng.github.io/tags/android">android</a></li>
+                                
+                                <li><a href="https://yaoyaomeng.github.io/tags/%E5%AE%89%E5%8D%93">安卓</a></li>
+                                
+                            </ul>
                             
                         </div>
                     </article>
