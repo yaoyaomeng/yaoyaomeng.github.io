@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sql on Xyz的博客</title>
+    <link>https://yaoyaomeng.github.io/tags/sql/</link>
+    <description>Recent content in sql on Xyz的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 09 Aug 2019 01:46:49 +0800</lastBuildDate>
+    
+	<atom:link href="https://yaoyaomeng.github.io/tags/sql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Sqlinject</title>
+      <link>https://yaoyaomeng.github.io/post/sqlinject/</link>
+      <pubDate>Fri, 09 Aug 2019 01:46:49 +0800</pubDate>
+      
+      <guid>https://yaoyaomeng.github.io/post/sqlinject/</guid>
+      <description>普通注入 header(&amp;#39;content-type: text/html; charset=utf-8&amp;#39;); $id = $_GET[&amp;#39;id&amp;#39;]; $conn = mysqli_connect(&amp;#39;localhost&amp;#39;,&amp;#34;root&amp;#34;,&amp;#39;root&amp;#39;,&amp;#39;test&amp;#39;); $sql = &amp;#34;select * from user where id={$id}&amp;#34;; $result = $conn-&amp;gt;query($sql); if($conn-&amp;gt;connect_error) { die(&amp;#39;数据库连接失败：&amp;#39; . $conn-&amp;gt;connect_error); } var_dump(&amp;#39;当前SQL语句是：&amp;#39; . $sql . &amp;#34;&amp;lt;br /&amp;gt;&amp;#34;); @print_r(mysqli_fetch_row($result)); 宽字节注入 gbk编码会把两个字节合并为一个汉字,因为汉字是个多字节组成，从而把用来过滤的\合并，造成了sql语</description>
+    </item>
+    
+  </channel>
+</rss>

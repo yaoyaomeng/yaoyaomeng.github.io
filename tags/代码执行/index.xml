@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>代码执行 on Xyz的博客</title>
+    <link>https://yaoyaomeng.github.io/tags/%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/</link>
+    <description>Recent content in 代码执行 on Xyz的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 06 Jul 2019 03:14:28 +0800</lastBuildDate>
+    
+	<atom:link href="https://yaoyaomeng.github.io/tags/%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>代码执行于命令执行</title>
+      <link>https://yaoyaomeng.github.io/post/%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E4%BA%8E%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/</link>
+      <pubDate>Sat, 06 Jul 2019 03:14:28 +0800</pubDate>
+      
+      <guid>https://yaoyaomeng.github.io/post/%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E4%BA%8E%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/</guid>
+      <description>代码执行 php中有eval()这个函数, 把字符串按照 PHP 代码来计算。 该字符串必须是合法的 PHP 代码,且必须以分号结尾. 意思就是说把里面的字符串按照php代码来执行。 $a = &#39;aaa&#39;; $b = &#39;bbb&#39;; eval(&#39;$a=$b;&#39;); var_dump($a); 类似的还有assert(),preg_replace(),call_user_func(),call_us</description>
+    </item>
+    
+  </channel>
+</rss>
