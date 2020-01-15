@@ -123,6 +123,31 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://yaoyaomeng.github.io/post/Broadcast/" title="Broadcast" >Broadcast</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020年1月15日
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="https://yaoyaomeng.github.io/categories/android">android</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                广播可以用来传递信息 public class MainActivity extends AppCompatActivity { private Button button1; private TextView textview1; private MyBroadcast mBroadcast; @Override protected void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); setContentView(R.layout.activity_main); button1 = (Button) findViewById(R.id.button1); textview1 = (TextView) findViewById(R.id.text1); button1.setOnClickListener(new View.OnClickListener() { @Override public void onClick(View v) { Intent intent = new Intent(MainActivity.this,Main2Activity.class); startActivity(intent); } }); mBroadcast = new MyBroadcast(); IntentFilter intentFilter = new IntentFilter(); intentFilter.addAction(&quot;com.skypan.up&quot;); LocalBroadcastManager.getInstance(this).registerReceiver(mBroadcast,intentFilter); } private class MyBroadcast extends BroadcastReceiver{ @Override public void onReceive(Context context, Intent intent) { switch (intent.getAction()){ case &quot;com.skypan.up&quot;: textview1.setText(&quot;abc&quot;); break; } } } @Override protected void onDestroy() { super.onDestroy(); LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcast); } } MyBroadcast为要注册的广播继承BroadcastReceiver类，……
+                            </div>
+                            <p class="readmore"><a href="https://yaoyaomeng.github.io/post/Broadcast/">阅读全文</a></p>
+                        </article>
+                    
+                    
+		    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://yaoyaomeng.github.io/post/Fragment/" title="Fragment" >Fragment</a>
                                 </h1>
                             </header>
@@ -330,31 +355,6 @@
                         </article>
                     
                     
-		    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://yaoyaomeng.github.io/post/bypass-wts-waf/" title="Bypass Wts Waf" >Bypass Wts Waf</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019年7月22日
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="https://yaoyaomeng.github.io/categories/websafe">websafe</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                今天遇到个站有点意思，环境asp.net，waf是wts—waf,有个链接存在sql注入 过waf注入的整个过程非常顺利，以下是过程 ?id=6532+and+1=1 //用+号是为了绕过waf ?id=6532+and+1=2 网页出现异常说明存在注入。 然后ORDER BY 25 查询字段,超过25出现异常说明字段数为25 +union+select+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25+from+admin 使用联合查询猜表名，从网页返回的……
-                            </div>
-                            <p class="readmore"><a href="https://yaoyaomeng.github.io/post/bypass-wts-waf/">阅读全文</a></p>
-                        </article>
-                    
-                    
                     
 
 
@@ -399,6 +399,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://yaoyaomeng.github.io/post/Broadcast/" title="Broadcast">Broadcast</a>
+    </li>
+    
+    <li>
         <a href="https://yaoyaomeng.github.io/post/Fragment/" title="Fragment">Fragment</a>
     </li>
     
@@ -434,10 +438,6 @@
         <a href="https://yaoyaomeng.github.io/post/%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E4%BA%8E%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" title="代码执行于命令执行">代码执行于命令执行</a>
     </li>
     
-    <li>
-        <a href="https://yaoyaomeng.github.io/post/xss-%E5%AD%A6%E4%B9%A0%E5%A7%BF%E5%8A%BF/" title="xss-学习姿势">xss-学习姿势</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -449,7 +449,7 @@
     
     <li><a href="https://yaoyaomeng.github.io/categories/C%E8%AF%AD%E8%A8%80/">C语言 (1)</a></li>
     
-    <li><a href="https://yaoyaomeng.github.io/categories/android/">android (3)</a></li>
+    <li><a href="https://yaoyaomeng.github.io/categories/android/">android (4)</a></li>
     
     <li><a href="https://yaoyaomeng.github.io/categories/websafe/">websafe (4)</a></li>
     

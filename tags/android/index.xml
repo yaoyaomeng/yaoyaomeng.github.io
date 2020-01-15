@@ -6,10 +6,19 @@
     <description>Recent content in android on Xyz的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 14 Jan 2020 15:36:55 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 15 Jan 2020 17:54:08 +0800</lastBuildDate>
     
 	<atom:link href="https://yaoyaomeng.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Broadcast</title>
+      <link>https://yaoyaomeng.github.io/post/Broadcast/</link>
+      <pubDate>Wed, 15 Jan 2020 17:54:08 +0800</pubDate>
+      
+      <guid>https://yaoyaomeng.github.io/post/Broadcast/</guid>
+      <description>广播可以用来传递信息 public class MainActivity extends AppCompatActivity { private Button button1; private TextView textview1; private MyBroadcast mBroadcast; @Override protected void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); setContentView(R.layout.activity_main); button1 = (Button) findViewById(R.id.button1); textview1 = (TextView) findViewById(R.id.text1); button1.setOnClickListener(new View.OnClickListener() { @Override public void onClick(View v) { Intent intent = new Intent(MainActivity.this,Main2Activity.class); startActivity(intent); } }); mBroadcast = new MyBroadcast(); IntentFilter intentFilter = new IntentFilter(); intentFilter.addAction(&amp;quot;com.skypan.up&amp;quot;); LocalBroadcastManager.getInstance(this).registerReceiver(mBroadcast,intentFilter); } private class MyBroadcast extends BroadcastReceiver{ @Override public void onReceive(Context context, Intent intent) { switch (intent.getAction()){ case &amp;quot;com.skypan.up&amp;quot;: textview1.setText(&amp;quot;abc&amp;quot;); break; } } } @Override protected void onDestroy() { super.onDestroy(); LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcast); } } MyBroadcast为要注册的广播继承BroadcastReceiver类，</description>
+    </item>
     
     <item>
       <title>Fragment</title>

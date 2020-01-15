@@ -58,20 +58,20 @@
         <div class="snow-container"></div>
 
 
-    <title>Hello World | Xyz的博客</title>
-    <meta property="og:title" content="Hello World - Xyz的博客">
+    <title>Broadcast | Xyz的博客</title>
+    <meta property="og:title" content="Broadcast - Xyz的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-12-07T11:02:12&#43;08:00">
+    <meta property="article:published_time" content="2020-01-15T17:54:08&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2019-12-07T11:02:12&#43;08:00">
+    <meta property="article:modified_time" content="2020-01-15T17:54:08&#43;08:00">
         
     <meta name="Keywords" content="c语言,php,goxyz,XYZ,java,android,博客,项目管理,电路,硬件,stm32,80c51">
-    <meta name="description" content="本博客采用Hugo&#43;GitHub搭建">
+    <meta name="description" content="Broadcast">
         
     <meta name="author" content="xyz">
-    <meta property="og:url" content="https://yaoyaomeng.github.io/post/helloWorld/">
+    <meta property="og:url" content="https://yaoyaomeng.github.io/post/Broadcast/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -120,6 +120,107 @@
 
 <div id="body">
         
+        <div id="virtual_toc_list" style="display: none">
+            <nav id="TableOfContents"></nav>
+        </div>
+        <div id="float_toc_div" style="margin: 10px;border: 1px solid gray;z-index:99999;display: none;">
+            <header style="background-color: #f3f3f3;color: black;border-bottom: 1px solid gray;padding: 10px 10px 10px 10px;">
+                <strong id="toc_btn_open" style="color: black;font-size: large;">目录</strong>
+                <strong id="toc_btn_close" style="color: black;font-size: large;float: right">╳</strong>
+            </header>
+            <div id="toc_list" style="background-color: #f3f3f3;color: black;padding: 10px;">
+        
+            </div>
+        </div>
+        <style type="text/css">
+            #float_toc_div {
+                position: fixed;
+                display: none;
+                 
+                height: auto;
+                font-size: 13px;
+            }
+        
+            #toc_list a:hover,
+            #toc_list a:active {
+                color: #ba3925;
+            }
+        </style>
+        <script>
+            window.onload = function () {
+                let tocNavElem = document.getElementById("TableOfContents");
+                let floatTocDivElem = document.getElementById("float_toc_div");
+                let tocListElem = floatTocDivElem.getElementsByTagName('div')[0];
+                let colGroupElem = document.getElementById("body").getElementsByClassName("col-group")[0]
+                let floatTocWidth = (document.body.clientWidth - colGroupElem.offsetWidth) / 2 - 16;
+                var useFloatToc = false;
+
+                if (floatTocWidth >= 100) {
+                    useFloatToc = true;
+                    document.getElementById("toc_list").appendChild(tocNavElem);
+                    floatTocDivElem.style.display = 'block';
+                    floatTocDivElem.style.width = floatTocWidth + 'px';
+                    top();
+                    floatTocDivElem.style.left = '0px';
+
+                    function top() {
+                        if (document.getElementsByClassName('container')[0].offsetWidth <= 720) {
+                            floatTocDivElem.style.top = '0px';
+                        } else {
+                            floatTocDivElem.style.top = window.innerHeight / 9 + 'px';
+                        }
+                    }
+
+                    function ishide() {
+                        if (document.getElementsByClassName('container')[0].offsetWidth <= 720) {
+                            floatTocDivElem.style.top = '0px';
+                        } else {
+                            floatTocDivElem.style.display = 'block';
+                        }
+                    }
+
+                    window.onscroll = function () {
+                        ishide();
+                        if ((document.documentElement.scrollTop != 0) && (floatTocDivElem.style.display == 'block')) {
+                            top();
+                        }
+                    };
+
+                    window.onresize = function () {
+                        ishide();
+                    }
+
+                    document.getElementById("toc_btn_open").addEventListener('click', function () {
+                        switch (tocListElem.style.display) {
+                            case "none":
+                                document.getElementById("toc_btn_close").style.display = "";
+                                tocListElem.style.display = "";
+                                floatTocDivElem.getElementsByTagName("header")[0].style.borderBottom = "1px solid gray";
+                                break;
+                            default:
+                                break;
+                        }
+                    }, false);
+
+                    document.getElementById("toc_btn_close").addEventListener('click', function () {
+                        switch (tocListElem.style.display) {
+                            case "":
+                                document.getElementById("toc_btn_close").style.display = "none";
+                                tocListElem.style.display = "none";
+                                floatTocDivElem.getElementsByTagName("header")[0].style.borderBottom = "";
+                                break;
+                            default:
+                                break;
+                        }
+                    }, false);
+                } else {
+                    let fixedTocElem = document.getElementsByClassName("toc-article")[0];
+                    fixedTocElem.appendChild(tocNavElem);
+                    fixedTocElem.parentElement.style.display = "";
+                }
+                document.getElementById("virtual_toc_list").remove();
+            };   
+        </script>
         
     <div class="container">
         <div class="col-group">
@@ -128,16 +229,16 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">Hello World</h1>
+                            <h1 class="post-title">Broadcast</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2019年12月7日
+                            2020年1月15日
                         </date>
                         
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="https://yaoyaomeng.github.io/categories/%E6%9D%82%E6%8A%80%E6%B5%85%E5%B0%9D">杂技浅尝</a></span>
+                                <span class="meta-category"><a href="https://yaoyaomeng.github.io/categories/android">android</a></span>
                             
                         </div>
                         
@@ -147,10 +248,77 @@
                         </div>
                         
                         
+                        <div class="clear" style="display: none">
+                            <div class="toc-article">
+                                <div class="toc-title">文章目录</div>
+                            </div>
+                        </div>
+                        
                         <div class="post-content">
-                            <p>博客采用hugo+github搭建而成.</p>
-<p>主题为maupassant；</p>
-<p>本博客主要记录学习笔记和一些自己的心得体会。</p>
+                            <p>广播可以用来传递信息</p>
+<pre><code>public class MainActivity extends AppCompatActivity {
+    private Button button1;
+    private TextView textview1;
+    private  MyBroadcast mBroadcast;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        button1 = (Button) findViewById(R.id.button1);
+        textview1 = (TextView) findViewById(R.id.text1);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,Main2Activity.class);
+                startActivity(intent);
+            }
+        });
+
+        mBroadcast = new MyBroadcast();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(&quot;com.skypan.up&quot;);
+        LocalBroadcastManager.getInstance(this).registerReceiver(mBroadcast,intentFilter);
+    }
+
+    private class MyBroadcast extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            switch (intent.getAction()){
+                case &quot;com.skypan.up&quot;:
+                    textview1.setText(&quot;abc&quot;);
+                    break;
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcast);
+    }
+}
+
+</code></pre><p>MyBroadcast为要注册的广播继承BroadcastReceiver类，并且重写onReceive的事件方法，然后把MyBroadcast进行实例化，</p>
+<p>intentFilter通过后面的Filter就知道是一个过滤器，添加要发送广播的Action，使用LocalBroadcastManager能更好的不让其他应用接收到你广播</p>
+<p>registerReceiver为注册广播.</p>
+<pre><code>public class Main2Activity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main2);
+        Button button1 = (Button) findViewById(R.id.button1);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(&quot;com.skypan.up&quot;);
+                LocalBroadcastManager.getInstance(Main2Activity.this).sendBroadcast(intent);
+            }
+        });
+    }
+}
+
+</code></pre><p>发送广播后,onReceive事件方法里面会进行判断是不是我们的这个Action，如果是就执行里面的语句。</p>
 
                         </div>
 
@@ -158,7 +326,7 @@
 <div class="post-archive">
     <ul class="post-copyright">
         <li><strong>原文作者：</strong><a rel="author" href="https://yaoyaomeng.github.io">xyz</a></li>
-        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://yaoyaomeng.github.io/post/helloWorld/">https://yaoyaomeng.github.io/post/helloWorld/</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://yaoyaomeng.github.io/post/Broadcast/">https://yaoyaomeng.github.io/post/Broadcast/</a></li>
         <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
     </ul>
 </div>
@@ -172,15 +340,15 @@
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/post/Fragment/">Fragment</a></li>
         
-        <li><a href="/about/">关于我</a></li>
+        <li><a href="/post/android%E5%AD%A6%E4%B9%A02/">Android学习2</a></li>
         
-        <li><a href="/post/sqlinject/">Sqlinject</a></li>
+        <li><a href="/post/android%E5%AD%A6%E4%B9%A01/">Android学习1</a></li>
         
-        <li><a href="/post/bypass-wts-waf/">Bypass Wts Waf</a></li>
+        <li><a href="/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/">STC51学习归纳</a></li>
         
-        <li><a href="/post/%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E4%BA%8E%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/">代码执行于命令执行</a></li>
+        <li><a href="/post/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/">C语言指针</a></li>
         
     </ul>
 </div>
@@ -190,7 +358,9 @@
                             
                             <ul class="clearfix">
                                 
-                                <li><a href="https://yaoyaomeng.github.io/tags/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB">杂七杂八</a></li>
+                                <li><a href="https://yaoyaomeng.github.io/tags/android">android</a></li>
+                                
+                                <li><a href="https://yaoyaomeng.github.io/tags/%E5%AE%89%E5%8D%93">安卓</a></li>
                                 
                             </ul>
                             
