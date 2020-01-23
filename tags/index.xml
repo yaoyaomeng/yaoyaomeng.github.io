@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Xyz的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 15 Jan 2020 17:54:08 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 23 Jan 2020 16:48:17 +0800</lastBuildDate>
     
 	<atom:link href="https://yaoyaomeng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,16 +14,25 @@
     <item>
       <title>android</title>
       <link>https://yaoyaomeng.github.io/tags/android/</link>
-      <pubDate>Wed, 15 Jan 2020 17:54:08 +0800</pubDate>
+      <pubDate>Thu, 23 Jan 2020 16:48:17 +0800</pubDate>
       
       <guid>https://yaoyaomeng.github.io/tags/android/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>Sql</title>
+      <link></link>
+      <pubDate>Thu, 23 Jan 2020 16:48:17 +0800</pubDate>
+      
+      <guid></guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>安卓</title>
       <link>https://yaoyaomeng.github.io/tags/%E5%AE%89%E5%8D%93/</link>
-      <pubDate>Wed, 15 Jan 2020 17:54:08 +0800</pubDate>
+      <pubDate>Thu, 23 Jan 2020 16:48:17 +0800</pubDate>
       
       <guid>https://yaoyaomeng.github.io/tags/%E5%AE%89%E5%8D%93/</guid>
       <description></description>
@@ -67,10 +76,10 @@
     
     <item>
       <title>sql</title>
-      <link></link>
+      <link>https://yaoyaomeng.github.io/tags/sql/</link>
       <pubDate>Fri, 09 Aug 2019 01:46:49 +0800</pubDate>
       
-      <guid></guid>
+      <guid>https://yaoyaomeng.github.io/tags/sql/</guid>
       <description></description>
     </item>
     
@@ -107,15 +116,6 @@
       <pubDate>Thu, 04 Jul 2019 12:43:31 +0800</pubDate>
       
       <guid>https://yaoyaomeng.github.io/tags/xss/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Sql</title>
-      <link>https://yaoyaomeng.github.io/tags/Sql/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://yaoyaomeng.github.io/tags/Sql/</guid>
       <description></description>
     </item>
     
