@@ -58,20 +58,16 @@
         <div class="snow-container"></div>
 
 
-    <title>STC51学习归纳 | Xyz的博客</title>
-    <meta property="og:title" content="STC51学习归纳 - Xyz的博客">
+    <title>AndroidSqlite | Xyz的博客</title>
+    <meta property="og:title" content="AndroidSqlite - Xyz的博客">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-12-08T11:24:18&#43;08:00">
-        
-        
-    <meta property="article:modified_time" content="2019-12-08T11:24:18&#43;08:00">
         
     <meta name="Keywords" content="c语言,php,goxyz,XYZ,java,android,博客,项目管理,电路,硬件,stm32,80c51">
-    <meta name="description" content="STC51学习归纳">
+    <meta name="description" content="AndroidSqlite">
         
     <meta name="author" content="xyz">
-    <meta property="og:url" content="https://yaoyaomeng.github.io/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/">
+    <meta property="og:url" content="https://yaoyaomeng.github.io/post/androidSqlite/">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -123,12 +119,8 @@
         <div id="virtual_toc_list" style="display: none">
             <nav id="TableOfContents">
   <ul>
-    <li><a href="#heading">单片机原理图</a></li>
-    <li><a href="#led">控制led</a></li>
-    <li><a href="#heading1">数码管</a></li>
-    <li><a href="#heading2">独立按键</a></li>
-    <li><a href="#heading3">矩阵按键</a></li>
-    <li><a href="#heading4">中断</a></li>
+    <li><a href="#heading">文件存储</a></li>
+    <li><a href="#sqlite">Sqlite</a></li>
   </ul>
 </nav>
         </div>
@@ -238,16 +230,16 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">STC51学习归纳</h1>
+                            <h1 class="post-title">AndroidSqlite</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2019年12月8日
+                            1年1月1日
                         </date>
                         
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="https://yaoyaomeng.github.io/categories/%E5%8D%95%E7%89%87%E6%9C%BA">单片机</a></span>
+                                <span class="meta-category"><a href="https://yaoyaomeng.github.io/categories/android">android</a></span>
                             
                         </div>
                         
@@ -264,311 +256,343 @@
                         </div>
                         
                         <div class="post-content">
-                            <h2 id="heading">单片机原理图</h2>
-<p><img src="https://s2.ax1x.com/2019/12/08/QULy34.png" alt="avatar"></p>
-<h2 id="led">控制led</h2>
-<pre><code>#include &lt;reg52.h&gt;
-unsigned int a;
-sbit LED1 = P2^0;   //sbit定义特殊功能寄存器的位变量，这里是定义P2的0位也就是控制led的第一个灯
-sbit LED2 = P2^1;
-sbit LED3 = P2^2;
-sbit LED4 = P2^3;
+                            <p>既然要用到数据库那当然也要了解一下安卓的文件存储,首先看文件存储的代码</p>
+<h2 id="heading">文件存储</h2>
+<pre><code>@Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button:
+                Log.d(TAG, &quot;onClick: 1&quot;);
+                save(&quot;我&quot;);
+                break;
+            case R.id.button2:
+                Log.d(TAG, &quot;onClick: 2&quot;);
+                String inputText = load();
+                if (!TextUtils.isEmpty(inputText)) {
+                    textView.setText(inputText);
+                }else {
+                    Toast.makeText(MainActivity.this,&quot;没有读取到文件&quot;,Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.button3:
+                dbHelper.getWritableDatabase();
+                break;
+        }
+    }
 
-void main(){
-		a = 3000;
-		while(1){
-			LED1 = 0; //这里是给低电平亮
-			while(a--); //进行延迟，如果不写会让led一直亮，因为电平来的太快了
-			LED1 = 1;
-			while(a--);
-			LED2 = 0;
-			while(a--);
-			LED2 = 1;
-			while(a--);
-			LED3 = 0;
-			while(a--);
-			LED3 = 1;
-			while(a--);
-			LED4 = 0;
-			while(a--);
-			LED4 = 1;
-			while(a--);
-		}
-		
-		
+    private void save(String text) {
+        FileOutputStream out = null;
+        BufferedWriter writer = null;
+        try {
+            out = openFileOutput(&quot;data&quot;,Context.MODE_PRIVATE);
+            writer = new BufferedWriter(new OutputStreamWriter(out));
+            writer.write(text);
+        }catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (writer != null) {
+                    writer.close();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    private String load() {
+        FileInputStream in = null;
+        BufferedReader reader = null;
+        StringBuilder content = new StringBuilder();
+        try {
+            in = openFileInput(&quot;data&quot;);
+            reader = new BufferedReader(new InputStreamReader(in));
+            String line = &quot;&quot;;
+            while ((line = reader.readLine()) != null) {
+                content.append(line);
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        return content.toString();
+    }
+</code></pre><p>这里写了两个方法一个是save和load，save方法和Java的写法一样定义FileOutputStream和BufferedWriter，后面就是安卓自带的openFileOutput参数1用于指定文件名称,参数2为操作模式，这里的默认的操作模式,然后创建一个字符缓冲输出流对象,writer.write(text);写入字符串.后面在finally后面写关闭输出流.</p>
+<p>load方法定义FileInputStream和BufferedReader这里的openFileInput也为安卓自带的填入文件名.创建字符缓冲输入流对象，通过while循环读每一行判断是否为null，在使用前面创建StringBuilder的content来拼接字符后面也是在finally关闭输入流.后返回字符串.</p>
+<h2 id="sqlite">Sqlite</h2>
+<p>创建一个类表示一个表,</p>
+<pre><code>package com.example.xyz.filetest.poj;
+
+public class User {
+    private int id;
+
+    private String userName;
+
+    private String passWord;
+
+    private String sex;
+
+    private int age;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;User{&quot; +
+                &quot;id=&quot; + id +
+                &quot;, userName='&quot; + userName + '\'' +
+                &quot;, passWord='&quot; + passWord + '\'' +
+                &quot;, sex='&quot; + sex + '\'' +
+                &quot;, age=&quot; + age +
+                '}';
+    }
+}
+</code></pre><p>在db包创建UserDatabaseHelper继承自SQLiteOpenHelper</p>
+<p>SQLiteOpenHelper：</p>
+<p>数据库操作的帮助类，借助这个类我们可以简单有效的对数据库进行创建和升级。该类为抽象类，需要我们创建类实现它。两个重要的抽象方法为：onCreate()和onUpgrade() 顾名思义分别是在数据库创建</p>
+<p>时和数据可升级时进行调用。两个重要的实例方法：getReadableDatabase()和getWritableDatabase()。前者为打开打开或创建一个可读的数据库，后者为打开或创建一个可读可写的数据库。</p>
+<pre><code>package com.example.xyz.filetest.db;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.Nullable;
+import android.util.Log;
+
+import com.example.xyz.filetest.utils.Constante;
+
+public class UserDatabaseHelper extends SQLiteOpenHelper {
+    private static final String TAG = &quot;UserDatabaseHelper&quot;;
+    private static final String createSql = &quot;create table user(id integer primary key autoincrement,userName varchar(30),password varchar(32), sex varchar(5)&quot; +
+            &quot;,age integer)&quot;;
+    public UserDatabaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, factory, version);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+      /*  String createSql = &quot;create table &quot; + Constante.TABLE_NAME +
+                &quot;(&quot; + Constante.FIELD_ID + &quot;integer primary key autoincrement,&quot; + Constante.FIELD_USER_NAME
+                + &quot; varchar(30),&quot;+ Constante.FIELD_PASSWORD
+                +&quot; varchar(32),&quot; + Constante.FIELD_SEX +
+                &quot; varchar(5),&quot;
+                + Constante.FIELD_AGE + &quot; integer)&quot;; */
+            db.execSQL(createSql);
+            Log.d(TAG, &quot;onCreate: 数据库创建完毕&quot;);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+    }
 }
 
-</code></pre><p>呼吸灯</p>
-<p>这里他通过控制电平速度来达到id的亮暗程度</p>
-<pre><code>void main()
-{
-	int t=500; int n=0;
-	while(1)
-	{
-		for(n=1;n&lt;t;n++)
-		{	
-		P2=0xff;  //这里是led控制io口
-		delay(n);
-		P2=0xfe;
-		delay(t-n);
-		}	
-	}	
+</code></pre><p>onUpgrade方法是用与升级时进行调用,版本大于原来版本就会被调用,</p>
+<p>创建Constante作为常量类用于存放字段。</p>
+<pre><code>package com.example.xyz.filetest.utils;
+
+public class Constante {
+    public static final String DB_NAME = &quot;provider.db&quot;;
+    public static final int DB_VERSION = 1;
+    public static final String  TABLE_NAME = &quot;user&quot;;
+    public static final String FIELD_ID = &quot;id&quot;;
+    public static final String FIELD_USER_NAME = &quot;userName&quot;;
+    public static final String FIELD_PASSWORD = &quot;password&quot;;
+    public static final String FIELD_SEX = &quot;sex&quot;;
+    public static final String FIELD_AGE = &quot;age&quot;;
 }
-</code></pre><h2 id="heading1">数码管</h2>
-<p>数码管分为共阴和共阳,b为共阳输入低电平，c为共阴输入高电平有效
-<img src="https://gss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/wh%3D600%2C800/sign=5dd66231b6b7d0a27b9c0c9bfbdf5a31/63d0f703918fa0ecf8186a8e229759ee3c6ddb52.jpg" alt="数码管原理图"></p>
-<pre><code>#include &lt;reg52.h&gt;
-#define uint unsigned int
-#define uchar unsigned char
+</code></pre><p>创建IUserDao接口</p>
+<pre><code>public interface IUserDao {
+    long addUser(User user);
 
+    int delUserByid(int id);
 
-void delay(uint xms);
-//这里定义了一个数组里面存放数码管共阴的码表
-uint code Duanarray[] = {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x77,0x7c,0x39,0x5e,0x79,0x71,0x00}; 
+    int updataUser(User user);
 
-void main(){
-	uint i,a;
-	a = 3000;
-	while(1){
-		for(i=0;i&lt;10;i++){
-		while(a--)
-		P0 = Duanarray[i];
-		}
-	}
-	
-	
-		
-}
-//这里是延迟函数
-void delay(uint xms){
-		uint i;
-		for(i = 100;i&gt;0;i--)
-				for(xms;i&gt;0;i--);
+    User getUserById(int id);
+
+    List&lt;User&gt; listAllUser();
 }
 
-</code></pre><p>这里只能单独控制一个数码管，下面是通过74HC138译码器来进行多位显示</p>
-<p>74HC138真值表
-<img src="https://gss0.bdstatic.com/94o3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=745a3a691d950a7b613846966bb809bc/e61190ef76c6a7eff649c979fdfaaf51f3de6605.jpg" alt="avatar"></p>
-<pre><code>#include &lt;reg52.h&gt;
+</code></pre><p>在创建UserDaoImpl类来实现IUserDao接口的抽象方法</p>
+<pre><code>package com.example.xyz.filetest.dao;
 
-#define uint unsigned int
-#define uchar unsigned char
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
-sbit LSA1 = P2^2;    //74HC138控制输入进行位选
-sbit LSA2 = P2^3;
-sbit LSA3 = P2^4;
+import com.example.xyz.filetest.db.UserDatabaseHelper;
+import com.example.xyz.filetest.poj.User;
+import com.example.xyz.filetest.utils.Constante;
 
-uchar code tubeArray[] = {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f,0x77,0x7c,0x39,0x5e,0x79,0x71};  
+import java.util.ArrayList;
+import java.util.List;
 
-void digitalTubeSelect();
-void delay(uint a);
+public class UserDaoImpl implements IUserDao {
+    private final UserDatabaseHelper mUserDatabaseHelper;
+    public UserDaoImpl(Context context) {
+        mUserDatabaseHelper = new UserDatabaseHelper(context,Constante.DB_NAME,null,Constante.DB_VERSION);
+    }
 
-void main(){
-		while(1){
-			digitalTubeSelect();
-		}
+    @Override
+    public long addUser(User user) {
+        SQLiteDatabase db = mUserDatabaseHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Constante.FIELD_USER_NAME,user.getUserName());
+        values.put(Constante.FIELD_SEX,user.getSex());
+        values.put(Constante.FIELD_PASSWORD,user.getPassWord());
+        values.put(Constante.FIELD_AGE,user.getAge());
+        long result = db.insert(Constante.TABLE_NAME,null,values);
+        db.close();
+        return result;
+    }
+
+    @Override
+    public int delUserByid(int id) {
+        SQLiteDatabase db = mUserDatabaseHelper.getWritableDatabase();
+        int delete =  db.delete(Constante.TABLE_NAME,Constante.FIELD_ID,new String[] {id + &quot;&quot;});
+        db.close();
+        return delete;
+    }
+
+    @Override
+    public int updataUser(User user) {
+        SQLiteDatabase db = mUserDatabaseHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Constante.FIELD_USER_NAME,user.getUserName());
+        values.put(Constante.FIELD_SEX,user.getSex());
+        values.put(Constante.FIELD_PASSWORD,user.getPassWord());
+        values.put(Constante.FIELD_AGE,user.getAge());
+        int result = db.update(Constante.TABLE_NAME,values,Constante.FIELD_ID,new String[]{user.getId() + &quot;&quot;});
+        db.close();
+        return result;
+    }
+
+    @Override
+    public User getUserById(int id) {
+        SQLiteDatabase db = mUserDatabaseHelper.getReadableDatabase();
+        String sql = &quot;select * from &quot;+ Constante.TABLE_NAME + &quot; where &quot; + Constante.FIELD_ID + &quot;=?&quot;;
+        Cursor cursor = db.rawQuery(sql,new String[]{id + &quot;&quot;});
+        User user = null;
+        if (cursor.moveToNext()) {
+            user = new User();
+            int userId = cursor.getInt(cursor.getColumnIndex(Constante.FIELD_ID));
+            user.setId(userId);
+            String userName = cursor.getString(cursor.getColumnIndex(Constante.FIELD_USER_NAME));
+            user.setUserName(userName);
+            String userSex = cursor.getString(cursor.getColumnIndex(Constante.FIELD_SEX));
+            user.setSex(userSex);
+            String userPassword = cursor.getString(cursor.getColumnIndex(Constante.FIELD_PASSWORD));
+            user.setPassWord(userPassword);
+            int userAge = cursor.getInt(cursor.getColumnIndex(Constante.FIELD_AGE));
+            user.setAge(userAge);
+        }
+        db.close();
+        return user;
+    }
+
+    @Override
+    public List&lt;User&gt; listAllUser() {
+        SQLiteDatabase db = mUserDatabaseHelper.getReadableDatabase();
+        Cursor cursor = db.query(Constante.TABLE_NAME,null,null,null,null,null,null,null);  //Cursor 是每行的集合。
+        List&lt;User&gt; users = new ArrayList&lt;&gt;();
+        User user = null;
+        while (cursor.moveToNext()) {
+            user = new User();
+            int userId = cursor.getInt(cursor.getColumnIndex(Constante.FIELD_ID));
+            user.setId(userId);
+            String userName = cursor.getString(cursor.getColumnIndex(Constante.FIELD_USER_NAME));
+            user.setUserName(userName);
+            String userSex = cursor.getString(cursor.getColumnIndex(Constante.FIELD_SEX));
+            user.setSex(userSex);
+            String userPassword = cursor.getString(cursor.getColumnIndex(Constante.FIELD_PASSWORD));
+            user.setPassWord(userPassword);
+            int userAge = cursor.getInt(cursor.getColumnIndex(Constante.FIELD_AGE));
+            user.setAge(userAge);
+            users.add(user);
+        }
+        db.close();
+        return users;
+    }
 }
+</code></pre><p>Cursor 的一些重要方法：
+close()  关闭游标，释放资源
+copyStringToBuffer(int columnIndex, CharArrayBuffer buffer)  在缓冲区中检索请求的列的文本，将将其存储
+getColumnCount()  返回所有列的总数
+getColumnIndex(String columnName)  返回指定列的名称，如果不存在返回-1
+getColumnIndexOrThrow(String columnName)  从零开始返回指定列名称，如果不存在将抛出 IllegalArgumentException 异常。
+getColumnName(int columnIndex)  从给定的索引返回列名
+getColumnNames()  返回一个字符串数组的列名
+getCount()  返回Cursor 中的行数
+moveToFirst()  移动光标到第一行
+moveToLast()  移动光标到最后一行
+moveToNext()  移动光标到下一行
+moveToPosition(int position)  移动光标到一个绝对的位置
+moveToPrevious()  移动光标到上一行</p>
+<p>自此增删改查功能全部写完.</p>
+<p>测试</p>
+<pre><code>    private static final String TAG = &quot;ExampleInstrumentedTest&quot;;
+    @Test
+    public void testAddUser() {
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        IUserDao userDao = new UserDaoImpl(appContext);
+        User user = new User();
+        user.setSex(&quot;female&quot;);
+        user.setAge(18);
+        user.setPassWord(&quot;123456&quot;);
+        user.setUserName(&quot;luna&quot;);
+        long result = userDao.addUser(user);
+        Log.d(TAG, &quot;testAddUser: -------------&gt;&quot; + result);
+        assertNotEquals(-1,result);
+    }
 
-
-void digitalTubeSelect(){ 
-			uint i;
-			for(i=0;i&lt;8;i++){
-				switch(i){
-					case 0:
-						LSA1 = 0;
-						LSA2 = 0;
-						LSA3 = 0;
-						break;
-					case 1:
-						LSA1 = 1;
-						LSA2 = 0;
-						LSA3 = 0;
-						break;
-					case 2:
-						LSA1 = 0;
-						LSA2 = 1;
-						LSA3 = 0;
-						break;
-					case 3:
-						LSA1 = 1;
-						LSA2 = 1;
-						LSA3 = 0;
-						break;
-					case 4:
-						LSA1 = 0;
-						LSA2 = 0;
-						LSA3 = 1;
-						break;
-					case 5:
-						LSA1 = 1;
-						LSA2 = 0;
-						LSA3 = 1;
-						break;
-					case 6:
-						LSA1 = 0;
-						LSA2 = 1;
-						LSA3 = 1;
-						break;
-					case 7:
-						LSA1 = 1;
-						LSA2 = 1;
-						LSA3 = 1;
-						break;
-				}
-				delay(1000);
-				P0 = tubeArray[i];
-				delay(30000);
-				P0 = 0x00;
-			}
-
-}
-
-void delay(uint a){
-	if(a &gt; 0){
-		while(a--);
-	}
-}
-</code></pre><h2 id="heading2">独立按键</h2>
-<p>当独立按键还没有按下时，51单片机io口有上拉电阻默认高电平，当按下时变为低电平，但是因为机械特性会有抖动，这里采用软件消抖</p>
-<p>大概几毫秒过后如果还是低电平则执行操作点亮led</p>
-<pre><code>void passkeyBute(){
-		if(Key1 == 0){
-			delay(1000);
-			If(Key1==0)
-			{
-			led1 = 0; //点亮led
-			}
-		}
-}
-
-</code></pre><h2 id="heading3">矩阵按键</h2>
-<p>这里采用行列扫描 消抖也可以用上面独立按键的方法，
-高四位全部输出低电平，低四位输出高电平。当接收到的数据，低四位不全为高电平时，说明有按键按下，然后通过接收的数据值，判断是哪一列有按键按下，然后再反过来，高四位输出高电平，低四位输
-出低电平，然后根据接收到的高四位的值判断是那一行有按键按下，这样就能够确定是哪一个按键按下了。</p>
-<pre><code>void KeyDown(void)
-{
-	char a=0;
-	P1=0x0f;
-	
-	if(P1!=0x0f)
-	{
-		delay(1000);
-		if(GPIO_KEY!=0x0f)
-		{	
-			//列
-			P1=0X0F;
-			switch(P1)
-			{
-				case(0X07):	
-				KeyValue=0;
-				break;
-				case(0X0b):	
-					KeyValue=1;
-				break;
-				case(0X0d): 
-					KeyValue=2;
-				break;
-				case(0X0e):	
-					KeyValue=3;
-				break;
-			}
-			//行
-			
-			P1=0XF0;
-			switch(P1)
-			{
-				case(0X70):	
-					KeyValue=KeyValue;
-				break;
-				case(0Xb0):	
-					KeyValue=KeyValue+4;
-				break;
-				case(0Xd0): 
-					KeyValue=KeyValue+8;
-				break;
-				case(0Xe0):	
-					KeyValue=KeyValue+12;
-				break;
-			}
-			
-		}
-
-		
-	}
-	while((a&lt;50)&amp;&amp;(P1!=0xf0))	 //检测按键松手检测
-	{
-		delay(100);
-		a++;
-	}
-}
-</code></pre><h2 id="heading4">中断</h2>
-<p>中断是单片机非常重要的一个概念，c51有5个中断源，c52有6个多了一个定时器
-<img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3880252843,1280585862&amp;fm=26&amp;gp=0.jpg" alt="avatar">
-使用中断前需要打开中断开关，使用中断中断允许寄存器IE</p>
-<pre><code>EA   //中断总开关
-
-ET2  //定时器2中断开关
-
-ES   //串口通信中断开关
-
-ET1  //定时器1中断开关
-
-EX1  //外部1中断中断开关
-
-ET0  // 定时器0中断开关
-
-EX0  //外部1中断中断开关
-</code></pre>
-<p>优先级控制中断优先级寄存器IP
-PS&mdash;串行口中断优先级控制位。</p>
-<p>PS=1，串行口中断定义为高优先级中断。</p>
-<p>PS=0，串行口中断定义为低优先级中断。</p>
-<p>PT1&mdash;定时器/计数器1中断优先级控制位。</p>
-<p>PT1=1，定时器/计数器1中断定义为高优先级中断。</p>
-<p>PT1=0，定时器/计数器1中断定义为低优先级中断。</p>
-<p>PX1&mdash;外部中断1中断优先级控制位。</p>
-<p>PX1=1，外部中断1中断定义为高优先级中断。</p>
-<p>PX1=0，外部中断1中断定义为低优先级中断。</p>
-<p>PT0&mdash;定时器/计数器0中断优先级控制位。</p>
-<p>PT0=1，定时器/计数器0中断定义为高优先级中断。</p>
-<p>PT0=0，定时器/计数器0中断定义为低优先级中断。</p>
-<p>PX0&mdash;外部中断0中断优先级控制位。</p>
-<p>PX0=1，外部中断0中断定义为高优先级中断。</p>
-<p>PX0=0，外部中断0中断定义为低优先级中断。</p>
-<p>先看外部中断的使用</p>
-<pre><code>#include &lt;reg52.h&gt;
-#include &lt;stdio.h&gt;
-#define uint unsigned int
-#define uchar unsigned char
-
-sbit led1 = P2^0;
-void main(){
-	while(1){
-		keypass();
-	}
-}
-
-void mod(){
-	EA = 1; //开关中断
-	//外部中断
-	EX0 = 1;   //设置中断允许位
-	IT0 = 1;	//设置中断方式负跳变沿触发
-}
-
-void interrupt1() interrupt 0 {    
-		if(key2 == 0){
-				P2 = 0xff;
-				led1 = ~led1;
-		}
-				
-}
-
-void keypass(){	
-		if(key2 == 0){
-			P2 = 0xff;
-			delay(1000);
-		}
-}
 </code></pre>
                         </div>
 
@@ -576,7 +600,7 @@ void keypass(){
 <div class="post-archive">
     <ul class="post-copyright">
         <li><strong>原文作者：</strong><a rel="author" href="https://yaoyaomeng.github.io">xyz</a></li>
-        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://yaoyaomeng.github.io/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/">https://yaoyaomeng.github.io/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/</a></li>
+        <li style="word-break:break-all"><strong>原文链接：</strong><a href="https://yaoyaomeng.github.io/post/androidSqlite/">https://yaoyaomeng.github.io/post/androidSqlite/</a></li>
         <li><strong>版权声明：</strong>本作品采用<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可，非商业转载请注明出处（作者，原文链接），商业转载请联系作者获得授权。</li>
     </ul>
 </div>
@@ -590,15 +614,15 @@ void keypass(){
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/post/c%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88/">C语言指针</a></li>
+        <li><a href="/post/Broadcast/">Broadcast</a></li>
         
-        <li><a href="/post/helloWorld/">Hello World</a></li>
+        <li><a href="/post/Fragment/">Fragment</a></li>
         
-        <li><a href="/tools/">Tools</a></li>
+        <li><a href="/post/android%E5%AD%A6%E4%B9%A02/">Android学习2</a></li>
         
-        <li><a href="/about/">关于我</a></li>
+        <li><a href="/post/android%E5%AD%A6%E4%B9%A01/">Android学习1</a></li>
         
-        <li><a href="/post/sqlinject/">Sqlinject</a></li>
+        <li><a href="/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/">STC51学习归纳</a></li>
         
     </ul>
 </div>
@@ -608,7 +632,11 @@ void keypass(){
                             
                             <ul class="clearfix">
                                 
-                                <li><a href="https://yaoyaomeng.github.io/tags/c51">c51</a></li>
+                                <li><a href="https://yaoyaomeng.github.io/tags/android">android</a></li>
+                                
+                                <li><a href="https://yaoyaomeng.github.io/tags/%E5%AE%89%E5%8D%93">安卓</a></li>
+                                
+                                <li><a href="https://yaoyaomeng.github.io/tags/Sql">Sql</a></li>
                                 
                             </ul>
                             

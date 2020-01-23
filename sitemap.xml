@@ -118,11 +118,6 @@
   </url>
   
   <url>
-    <loc>https://yaoyaomeng.github.io/tags/sql/</loc>
-    <lastmod>2019-08-09T01:46:49+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://yaoyaomeng.github.io/post/sqlinject/</loc>
     <lastmod>2019-08-09T01:46:49+08:00</lastmod>
   </url>
@@ -165,6 +160,14 @@
   <url>
     <loc>https://yaoyaomeng.github.io/post/xss-%E5%AD%A6%E4%B9%A0%E5%A7%BF%E5%8A%BF/</loc>
     <lastmod>2019-07-04T12:43:31+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://yaoyaomeng.github.io/post/androidSqlite/</loc>
+  </url>
+  
+  <url>
+    <loc>https://yaoyaomeng.github.io/tags/Sql/</loc>
   </url>
   
   <url>

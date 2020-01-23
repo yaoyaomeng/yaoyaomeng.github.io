@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>sql on Xyz的博客</title>
-    <link>https://yaoyaomeng.github.io/tags/sql/</link>
-    <description>Recent content in sql on Xyz的博客</description>
+    <title>Sql on Xyz的博客</title>
+    <link>https://yaoyaomeng.github.io/tags/Sql/</link>
+    <description>Recent content in Sql on Xyz的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 09 Aug 2019 01:46:49 +0800</lastBuildDate>
     
-	<atom:link href="https://yaoyaomeng.github.io/tags/sql/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://yaoyaomeng.github.io/tags/Sql/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Sqlinject</title>
-      <link>https://yaoyaomeng.github.io/post/sqlinject/</link>
-      <pubDate>Fri, 09 Aug 2019 01:46:49 +0800</pubDate>
+      <title>AndroidSqlite</title>
+      <link>https://yaoyaomeng.github.io/post/androidSqlite/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://yaoyaomeng.github.io/post/sqlinject/</guid>
-      <description>普通注入 header(&amp;#39;content-type: text/html; charset=utf-8&amp;#39;); $id = $_GET[&amp;#39;id&amp;#39;]; $conn = mysqli_connect(&amp;#39;localhost&amp;#39;,&amp;#34;root&amp;#34;,&amp;#39;root&amp;#39;,&amp;#39;test&amp;#39;); $sql = &amp;#34;select * from user where id={$id}&amp;#34;; $result = $conn-&amp;gt;query($sql); if($conn-&amp;gt;connect_error) { die(&amp;#39;数据库连接失败：&amp;#39; . $conn-&amp;gt;connect_error); } var_dump(&amp;#39;当前SQL语句是：&amp;#39; . $sql . &amp;#34;&amp;lt;br /&amp;gt;&amp;#34;); @print_r(mysqli_fetch_row($result)); 宽字节注入 gbk编码会把两个字节合并为一个汉字,因为汉字是个多字节组成，从而把用来过滤的\合并，造成了sql语</description>
+      <guid>https://yaoyaomeng.github.io/post/androidSqlite/</guid>
+      <description>既然要用到数据库那当然也要了解一下安卓的文件存储,首先看文件存储的代码 文件存储 @Override public void onClick(View v) { switch (v.getId()) { case R.id.button: Log.d(TAG, &amp;quot;onClick: 1&amp;quot;); save(&amp;quot;我&amp;quot;); break; case R.id.button2: Log.d(TAG, &amp;quot;onClick: 2&amp;quot;); String inputText = load(); if (!TextUtils.isEmpty(inputText)) { textView.setText(inputText); }else { Toast.makeText(MainActivity.this,&amp;quot;没有读取到文件&amp;quot</description>
     </item>
     
   </channel>

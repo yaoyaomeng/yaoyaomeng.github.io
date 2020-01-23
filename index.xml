@@ -129,6 +129,15 @@
     </item>
     
     <item>
+      <title>AndroidSqlite</title>
+      <link>https://yaoyaomeng.github.io/post/androidSqlite/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yaoyaomeng.github.io/post/androidSqlite/</guid>
+      <description>既然要用到数据库那当然也要了解一下安卓的文件存储,首先看文件存储的代码 文件存储 @Override public void onClick(View v) { switch (v.getId()) { case R.id.button: Log.d(TAG, &amp;quot;onClick: 1&amp;quot;); save(&amp;quot;我&amp;quot;); break; case R.id.button2: Log.d(TAG, &amp;quot;onClick: 2&amp;quot;); String inputText = load(); if (!TextUtils.isEmpty(inputText)) { textView.setText(inputText); }else { Toast.makeText(MainActivity.this,&amp;quot;没有读取到文件&amp;quot</description>
+    </item>
+    
+    <item>
       <title>归档</title>
       <link>https://yaoyaomeng.github.io/archives/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
