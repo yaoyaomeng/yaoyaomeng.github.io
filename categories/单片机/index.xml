@@ -6,10 +6,19 @@
     <description>Recent content in 单片机 on Xyz的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 08 Dec 2019 11:24:18 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 25 Mar 2020 14:38:13 +0800</lastBuildDate>
     
 	<atom:link href="https://yaoyaomeng.github.io/categories/%E5%8D%95%E7%89%87%E6%9C%BA/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Stm32学习笔记</title>
+      <link>https://yaoyaomeng.github.io/post/stm32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 25 Mar 2020 14:38:13 +0800</pubDate>
+      
+      <guid>https://yaoyaomeng.github.io/post/stm32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>GPIO 寄存器版本stm32的目录，在keil根目录添加startup_stm32f40_41xxx.s即可， stm32f4有7组io口，分别GOIOA-GPIOG，每一组io有16个io端口，每个io为一个引脚，在我们用io口必须使能(控制信号的输入输出)对应io口时钟寄存器来控制i</description>
+    </item>
     
     <item>
       <title>STC51学习归纳</title>

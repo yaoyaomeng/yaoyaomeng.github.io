@@ -6,10 +6,19 @@
     <description>Recent content in Tags on Xyz的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 23 Jan 2020 16:48:17 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 25 Mar 2020 14:38:13 +0800</lastBuildDate>
     
 	<atom:link href="https://yaoyaomeng.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>stm32</title>
+      <link>https://yaoyaomeng.github.io/tags/stm32/</link>
+      <pubDate>Wed, 25 Mar 2020 14:38:13 +0800</pubDate>
+      
+      <guid>https://yaoyaomeng.github.io/tags/stm32/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>android</title>

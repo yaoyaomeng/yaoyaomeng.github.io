@@ -53,7 +53,7 @@
       <pubDate>Sun, 22 Dec 2019 21:17:26 +0800</pubDate>
       
       <guid>https://yaoyaomeng.github.io/post/android%E5%AD%A6%E4%B9%A01/</guid>
-      <description>最近要参加嵌入式技术大赛，我负责小车的安卓控制部分，现在学习android的代码相关控制 学习了3天的Java，学到集合我觉得的就差不多了，后面直接在安卓开发上练习，遇到不懂的Java知识 在补充，我认为这样的学习方法是可行的， 开发环境的使用的Android Studio 3.2,安装起来也是一波</description>
+      <description>开发环境的使用的Android Studio 3.2,安装起来也是一波三折还好都搞定了。 初始代码 package com.example.xyz.testapp; import android.support.v7.app.AppCompatActivity; import android.os.Bundle; public class MainActivity extends AppCompatActivity { @Override protected void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); //调用父类方法 setContentView(R.layout.activity_main); //加载布局 } } 这是默认的布局这里setContentView加载了一个xml文件，这里的xml需要在AndroidManifest.xml中</description>
     </item>
     
   </channel>

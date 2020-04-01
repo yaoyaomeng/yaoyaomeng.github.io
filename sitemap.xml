@@ -3,6 +3,41 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://yaoyaomeng.github.io/categories/</loc>
+    <lastmod>2020-03-25T14:38:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://yaoyaomeng.github.io/post/</loc>
+    <lastmod>2020-03-25T14:38:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://yaoyaomeng.github.io/tags/stm32/</loc>
+    <lastmod>2020-03-25T14:38:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://yaoyaomeng.github.io/post/stm32%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2020-03-25T14:38:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://yaoyaomeng.github.io/tags/</loc>
+    <lastmod>2020-03-25T14:38:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://yaoyaomeng.github.io/</loc>
+    <lastmod>2020-03-25T14:38:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://yaoyaomeng.github.io/categories/%E5%8D%95%E7%89%87%E6%9C%BA/</loc>
+    <lastmod>2020-03-25T14:38:13+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://yaoyaomeng.github.io/tags/android/</loc>
     <lastmod>2020-01-23T16:48:17+08:00</lastmod>
   </url>
@@ -14,26 +49,6 @@
   
   <url>
     <loc>https://yaoyaomeng.github.io/post/androidSqlite/</loc>
-    <lastmod>2020-01-23T16:48:17+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://yaoyaomeng.github.io/categories/</loc>
-    <lastmod>2020-01-23T16:48:17+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://yaoyaomeng.github.io/post/</loc>
-    <lastmod>2020-01-23T16:48:17+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://yaoyaomeng.github.io/tags/</loc>
-    <lastmod>2020-01-23T16:48:17+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://yaoyaomeng.github.io/</loc>
     <lastmod>2020-01-23T16:48:17+08:00</lastmod>
   </url>
   
@@ -69,11 +84,6 @@
   
   <url>
     <loc>https://yaoyaomeng.github.io/post/STC51%E5%AD%A6%E4%B9%A0%E5%BD%92%E7%BA%B3/</loc>
-    <lastmod>2019-12-08T11:24:18+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://yaoyaomeng.github.io/categories/%E5%8D%95%E7%89%87%E6%9C%BA/</loc>
     <lastmod>2019-12-08T11:24:18+08:00</lastmod>
   </url>
   
